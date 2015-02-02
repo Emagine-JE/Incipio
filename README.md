@@ -1,4 +1,4 @@
-Incipio
+Incipio - Version Emagine
 ===
 *« Incipio : Prendre en main, se mettre à entreprendre, commencer »*
 
