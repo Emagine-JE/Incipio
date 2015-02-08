@@ -1,4 +1,4 @@
-Incipio - Version Emagine
+Incipio  - Version Emagine
 ===
 *« Incipio : Prendre en main, se mettre à entreprendre, commencer »*
 
@@ -21,12 +21,13 @@ Le projet est sous [licence libre AGPL3](http://www.gnu.org/licenses/agpl-3.0.ht
 
 ## Documentation
 
-> Lire la [documentation](https://github.com/flef/Incipio/wiki)
+> Lire la [documentation](https://github.com/Emagine-JE/Incipio/wiki)
 
 ## Contact
 
-Florian Lefèvre 
-florian.lefevre (@) cnje (.) org
+> Responsable DSI Emagine Alexandre Couedelo : alexandre.couedelo@mines-ales.org
+
+> Créateur Florian Lefèvre : florian.lefevre (@) cnje (.) org
 
 
 
