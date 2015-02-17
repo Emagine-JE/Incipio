@@ -83,7 +83,7 @@ class Membre {
     
     /**
      * @var int $appartement
-     * @ORM\Column(name="appartement", type="smallint", nullable=true)
+     * @ORM\Column(name="appartement", type="string", nullable=true)
      */
     private $appartement;
 
