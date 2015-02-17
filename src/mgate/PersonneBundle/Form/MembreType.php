@@ -55,7 +55,7 @@ class MembreType extends AbstractType {
 				'Sénégalais' => 'Sénégalais', 'Serbe' => 'Serbe', 'Serbo-croate' => 'Serbo-croate', 'Singapour' => 'Singapour', 'Slovaque' => 'Slovaque', 'Soviétique' => 'Soviétique', 'Sri-lankais' => 'Sri-lankais',
 				'Sud-Africain' => 'Sud-Africain', 'Sud-Coréen' => 'Sud-Coréen', 'Suédois' => 'Suédois', 'Suisse' => 'Suisse', 'Syrien' => 'Syrien', 'Tadjik' => 'Tadjik', 'Taïwanais' => 'Taïwanais', 'Tchadien' => 'Tchadien',
 				'Tchèque' => 'Tchèque', 'Thaïlandais' => 'Thaïlandais', 'Tunisien' => 'Tunisien', 'Turc' => 'Turc', 'Ukrainien' => 'Ukrainien', 'Uruguayen' => 'Uruguayen', 'Vénézuélien' => 'Vénézuélien', 'Vietnamien' => 'Vietnamien')))
-                ->add('appartement', 'integer', array('label' => 'Appartement', 'required' => false))
+                ->add('appartement', 'text', array('label' => 'Appartement', 'required' => false))
                 ->add('mandats', 'collection', array(
                     'type' => new MandatType,
                     'allow_add' => true,

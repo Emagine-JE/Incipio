@@ -95,7 +95,7 @@ class DocumentController extends Controller
      * @Secure(roles="ROLE_CA")
      */
     public function uploadFormationAction($id){
-
+        //TODO methode vide à controler (AC)
     } 
         
     /**
