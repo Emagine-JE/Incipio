@@ -25,11 +25,9 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 {% block content %}
        
-    {% block breadcrumb %}
-    <ul class="breadcrumb no-margin">
-            <li>Formations</li>
-        </ul>
-    {% endblock %}
+    <h1>Formations</h1>
+    <a href="{{ path('mgate_formations_lister') }}" class="btn btn-info" >Liste des Formation</a>
+    <hr>
 
     {% block content_bundle %}
     {% endblock %}

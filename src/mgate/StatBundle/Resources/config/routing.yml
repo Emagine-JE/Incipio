@@ -20,11 +20,11 @@
 #
 
 mgate_indicateurs_index:
-    pattern:  /admin/indicateurs
+    pattern:  /indicateurs
     defaults: { _controller: mgateStatBundle:Indicateurs:index }
 
 mgate_indicateurs_ajax_suivi:
-    pattern:  /admin/indicateurs/etudes
+    pattern:  /indicateurs/etudes
     defaults: { _controller: mgateStatBundle:Indicateurs:ajax }
     
 mgate_indicateurs_debug:

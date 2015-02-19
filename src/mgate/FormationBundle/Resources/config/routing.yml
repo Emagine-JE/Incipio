@@ -21,7 +21,7 @@
 
 
 mgate_formations_index_admin:
-    pattern:  /admin/formations
+    pattern:  /ca/formations
     defaults: { _controller: mgateFormationBundle:Formation:index}
 
 mgate_formations_lister:
@@ -35,21 +35,21 @@ mgate_formation_voir:
         id: \d+
         
 mgate_formation_ajouter:
-    pattern:  /admin/formations/ajouter
+    pattern:  /ca/formations/ajouter
     defaults: { _controller: mgateFormationBundle:Formation:modifier, id : -1}
     
 mgate_formation_modifier:
-    pattern:  /admin/formations/modifier/{id}
+    pattern:  /ca/formations/modifier/{id}
     defaults: { _controller: mgateFormationBundle:Formation:modifier }
     requirements:
         id: \d+
         
 mgate_formation_supprimer:
-    pattern:  /admin/formations/supprimer/{id}
+    pattern:  /ca/formations/supprimer/{id}
     defaults: { _controller: mgateFormationBundle:Formation:supprimer }
     requirements:
         id: \d+
         
 mgate_formation_participation:
-    pattern:  /admin/formations/participation
+    pattern:  /formations/participation
     defaults: { _controller: mgateFormationBundle:Formation:participation }

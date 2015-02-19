@@ -1,0 +1,4 @@
+services:
+#    emagine_sec_g.example:
+#        class: emagine\SecGBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
