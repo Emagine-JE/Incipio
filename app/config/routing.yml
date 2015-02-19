@@ -1,3 +1,11 @@
+emagine_com:
+    resource: "@emagineComBundle/Resources/config/routing.yml"
+    prefix:   /
+
+emagine_sec_g:
+    resource: "@emagineSecGBundle/Resources/config/routing.yml"
+    prefix:   /
+
 mgate_formation:
     resource: "@mgateFormationBundle/Resources/config/routing.yml"
     prefix:   /
