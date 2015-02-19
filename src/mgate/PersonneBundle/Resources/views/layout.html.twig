@@ -31,7 +31,10 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
     {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
     {% block sous_titre %}
     <h1>Gestion des Clients et des Utilisateurs</h1>
-    <a href="{{ path('mgatePersonne_membre_homepage') }}" class="btn btn-info" >Retour à la liste des membres</a>
+    <a href="{{ path('mgatePersonne_membre_homepage') }}" class="btn btn-info" >Membres</a>
+    <a href="{{ path('mgatePersonne_intervenants_homepage') }}" class="btn btn-info" >Intervenants</a>
+
+    <a href="{{ path('mgatePersonne_intervenants_homepage') }}" class="btn btn-warning" >Clients</a>
 
     <hr>
     {% endblock %}

@@ -1,0 +1,4 @@
+services:
+#    emagine_com.example:
+#        class: emagine\ComBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
