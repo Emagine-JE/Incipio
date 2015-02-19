@@ -1,0 +1,3 @@
+emagine_com_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: emagineComBundle:Default:index }
