@@ -71,13 +71,14 @@ class EtudeController extends Controller {
             array_push($etudesAvorteesParMandat, array());
         }
 
+
         return $this->render('mgateSuiviBundle:Etude:index.html.twig', array(
                     'etudesEnNegociation' => $etudesEnNegociation,
                     'etudesEnCours' => $etudesEnCours,
                     'etudesEnPause' => $etudesEnPause,
                     'etudesTermineesParMandat' => $etudesTermineesParMandat,
                     'etudesAvorteesParMandat' => $etudesAvorteesParMandat,
-                ));
+        ));
     }
 
     /**

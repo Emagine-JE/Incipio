@@ -1,3 +1,3 @@
-emagine_sec_g_homepage:
-    path:     /hello/{name}
+emagine_sec_g_adhesion_checker:
+    path:     /ca/AdhesionChecker
     defaults: { _controller: emagineSecGBundle:Default:index }

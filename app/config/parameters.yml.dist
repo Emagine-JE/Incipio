@@ -28,6 +28,7 @@ parameters:
         id:           ~
         email:        ~
         logo:         ~
+        logo_min:     ~
         adresse:      ~
         url:          ~
         ga_tracking:  ~

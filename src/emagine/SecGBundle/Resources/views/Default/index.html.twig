@@ -1,1 +1,9 @@
-Hello {{ name }}!
+{# layout générale #}
+{% extends "::layout.html.twig" %}
+{% block title %}
+    {{ junior['abbr'] }}
+{% endblock %}
+
+{% block content %}
+	<h1>Module SecG à venir</h1>
+{% endblock %}
