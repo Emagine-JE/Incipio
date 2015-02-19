@@ -1,0 +1,3 @@
+emagine_sec_g_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: emagineSecGBundle:Default:index }
