@@ -51,27 +51,6 @@ class Poste
     private $intitule;
 
     /**
-     * @var text $description
-     * 
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @var string $fiche URL vers la fiche de poste
-     *
-     * @ORM\Column(name="fiche", type="string", length=255, nullable=true)
-     */
-    private $fiche;
-
-        /**
-     * @var string $book URL vers la fiche de poste
-     *
-     * @ORM\Column(name="book", type="string", length=255, nullable=true)
-     */
-    private $book;
-
-    /**
      * @ORM\OneToMany(targetEntity="mgate\PersonneBundle\Entity\Mandat", mappedBy="poste")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -150,74 +129,5 @@ class Poste
     public function getMandats()
     {
         return $this->mandats;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Poste
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set fiche
-     *
-     * @param string $fiche
-     * @return Poste
-     */
-    public function setFiche($fiche)
-    {
-        $this->fiche = $fiche;
-    
-        return $this;
-    }
-
-    /**
-     * Get fiche
-     *
-     * @return string 
-     */
-    public function getFiche()
-    {
-        return $this->fiche;
-    }
-
-    /**
-     * Set book
-     *
-     * @param string $book
-     * @return Poste
-     */
-    public function setBook($book)
-    {
-        $this->book = $book;
-    
-        return $this;
-    }
-
-    /**
-     * Get book
-     *
-     * @return string 
-     */
-    public function getBook()
-    {
-        return $this->book;
     }
 }
