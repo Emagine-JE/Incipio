@@ -26,14 +26,18 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 {% endblock %}
 
 {% block content_bundle %}
-<p>
-	<h2>{{ poste.intitule }}</h2>
+<div class="jumbotron">
+	<h1>{{ poste.intitule }}</h1>
+	<p>{{ poste.description }}</p>
+</div>
 
-</p>
 
-<p>
-    <a href="{{ path('mgatePersonne_poste_modifier', {'id': poste.id}) }}">Modifier le poste</a><br />
-    <a href="{{ path('mgatePersonne_poste_homepage') }}">Retour à la liste des postes</a>
+<p> 
+   <a class="btn btn-lg btn-primary"href="{{ path('mgatePersonne_poste_homepage') }}">Retour à la liste des postes</a>
+
+   {% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn-lg btn-warning" href="{{ path('mgatePersonne_poste_modifier', {'id': poste.id}) }}">Modifier le poste</a>
+	{% endif %}
 </p>
 
 {% endblock %}
