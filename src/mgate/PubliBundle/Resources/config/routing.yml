@@ -26,16 +26,16 @@ mgate_publi_publiposter:
         rootObject_id:  \d+
         rootName: \w+
         templateName: \w+
-    
+
 mgate_publi_telecharger:
     pattern: /publi/publiposter/telecharger
     defaults: {_controller: mgatePubliBundle:Traitement:telecharger}
 
 mgate_publi_documenttype_upload:
     pattern: /DocumentsType/Upload
-    defaults: {_controller: mgatePubliBundle:Traitement:uploadNewDoctype}  
-        
-        
+    defaults: {_controller: mgatePubliBundle:Traitement:uploadNewDoctype}
+
+
 ######################
 # UPLOAD DE DOCUMENT #
 ######################
@@ -48,7 +48,7 @@ mgate_publi_document_uploadEtude:
     defaults: {_controller: mgatePubliBundle:Document:uploadEtude}
     requirements:
         etude_id:  \d+
-        
+
 mgate_publi_document_uploadEtudiant:
     pattern: /Documents/Upload/Etudiant/{membre_id}
     defaults: {_controller: mgatePubliBundle:Document:uploadEtudiant}
@@ -60,7 +60,7 @@ mgate_publi_document_uploadFormation:
     defaults: {_controller: mgatePubliBundle:Document:uploadFormation}
     requirements:
         id:  \d+
-        
+
 mgate_publi_document_uploadDoctype:
     pattern: /Documents/Upload/Doctype
     defaults: {_controller: mgatePubliBundle:Document:uploadDoctype}
@@ -70,4 +70,3 @@ mgate_publi_document_delete:
     defaults: {_controller: mgatePubliBundle:Document:delete}
     requirements:
         id:  \d+
-  

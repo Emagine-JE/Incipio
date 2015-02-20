@@ -95,7 +95,7 @@ class MembreController extends Controller {
     }
 
     /**
-     * @Secure(roles="ROLE_ELEVE")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     public function voirAction($id) {
         $em = $this->getDoctrine()->getManager();
