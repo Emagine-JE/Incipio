@@ -79,11 +79,13 @@ class Av extends DocType
     private $phases;
     
     public static function getClausesChoices(){
-        return array(1 => 'Avenant de Délai',
+        return array(
+            1 => 'Avenant de Délai',
             2 => 'Avenant de Méthodologie',
             3 => 'Avenant de Montant',
             4 => 'Avenant de Mission',
-            5 => 'Avenant de Rupture');
+            5 => 'Avenant de Rupture'
+        );
     }  
     
     /**

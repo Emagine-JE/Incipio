@@ -39,7 +39,9 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         {% endfor %}
     </ul>
     <br>
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('mgatePersonne_poste_ajouter') }}" class="btn btn-success" ><span class="glyphicon glyphicon-plus"> Ajouter un Poste</span></a>
+    {% endif %}
         
 
 
