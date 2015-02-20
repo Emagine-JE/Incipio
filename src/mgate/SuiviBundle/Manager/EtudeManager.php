@@ -626,11 +626,31 @@ class EtudeManager extends \Twig_Extension {
                 ->orderBy('e.mandat', 'DESC');
 
         $value = $query->getQuery()->setMaxResults(1)->getOneOrNullResult();
+
         if ($value)
             return $value['mandat'];
         else
             return 0;
     }
+
+     /**
+     * Get le minimum des mandats
+     */
+    public function getMinMandat() {
+        $qb = $this->em->createQueryBuilder();
+
+        $query = $qb->select('e.mandat')
+                ->from('mgateSuiviBundle:Etude', 'e')
+                ->orderBy('e.mandat', 'ASC');
+
+        $value = $query->getQuery()->setMaxResults(1)->getOneOrNullResult();
+
+        if ($value)
+            return $value['mandat'];
+        else
+            return 0;
+    }
+
     
     /**
      * Get le maximum des mandats par rapport à la date de Signature de signature des CC
@@ -641,6 +661,24 @@ class EtudeManager extends \Twig_Extension {
         $query = $qb->select('c.dateSignature')
                 ->from('mgateSuiviBundle:Cc', 'c')
                 ->orderBy('c.dateSignature', 'DESC');
+
+        $value = $query->getQuery()->setMaxResults(1)->getOneOrNullResult();
+        
+        if ($value)
+            return $this->dateToMandat($value['dateSignature']);
+        else
+            return 0;
+    }
+
+    /**
+     * Get le minimum des mandats par rapport à la date de Signature de signature des CC
+     */
+    public function getMinMandatCc() {
+        $qb = $this->em->createQueryBuilder();
+
+        $query = $qb->select('c.dateSignature')
+                ->from('mgateSuiviBundle:Cc', 'c')
+                ->orderBy('c.dateSignature', 'ASC');
 
         $value = $query->getQuery()->setMaxResults(1)->getOneOrNullResult();
         
