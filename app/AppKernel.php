@@ -58,6 +58,8 @@ class AppKernel extends Kernel
 			new mgate\PersonneBundle\mgatePersonneBundle(),
             new mgate\CommentBundle\mgateCommentBundle(),
 			new mgate\SuiviBundle\mgateSuiviBundle(),
+            new emagine\SecGBundle\emagineSecGBundle(),
+            new emagine\ComBundle\emagineComBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
