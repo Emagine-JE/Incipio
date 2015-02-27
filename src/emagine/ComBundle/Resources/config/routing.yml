@@ -1,3 +1,7 @@
 emagine_com_homepage:
     path:     /ca/communication
     defaults: { _controller: emagineComBundle:Default:index }
+
+emagine_com_charte:
+    path:     /com/charte
+    defaults: { _controller: emagineComBundle:Default:charteGraphique }
