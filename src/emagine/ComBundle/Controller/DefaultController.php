@@ -10,4 +10,8 @@ class DefaultController extends Controller
     {
         return $this->render('emagineComBundle:Default:index.html.twig');
     }
+
+    public function charteGraphiqueAction(){
+    	return $this->render('emagineComBundle:Default:charte.html.twig');
+    }
 }
