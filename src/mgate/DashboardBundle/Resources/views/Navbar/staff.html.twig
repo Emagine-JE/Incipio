@@ -47,7 +47,8 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
             <li class="divider"></li>
             <li class="dropdown-header">SecG</li>
             <li><a href="{{ path('mgatePersonne_membre_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un membre</a></li>
-            <li><a href="{{ path('emagine_sec_g_adhesion_checker') }}"><span class="glyphicon glyphicon-ok-sign"></span> d’Adhésion Checker</a></li>
+            <li><a href="{{ path('emagine_sec_g_adhesion_checker') }}"><span class="glyphicon glyphicon-ok-sign"></span><s> d’Adhésion Checker</s></a></li>
+            <li><a href="{{ path('emagine_sec_g_adhesion_checker') }}"><span class="glyphicon glyphicon-folder-open"></span><s> Compte rendu</s></a></li>
             {% endif %}
 
         </ul>
@@ -60,9 +61,9 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pilotage de la J.E.<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li class="dropdown-header">La structure</li>
-            <li><a href="#"><span class="glyphicon glyphicon-globe"></span> Organigramme</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-globe"></span><s> Organigramme</s></a></li>
             <li><a href="{{ path('mgatePersonne_poste_homepage') }}"><span class="glyphicon glyphicon-list"></span> Postes</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-list"></span> Pôles</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-list"></span><s> Pôles</s></a></li>
             <li class="divider"></li>
             <li class="dropdown-header"> Les Indicateurs</li>
             <li><a href="{{ path('mgate_indicateurs_index') }}"><span class="glyphicon glyphicon-stats"></span> Indicateur</a></li>
@@ -77,6 +78,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         <ul class="dropdown-menu">
             <li class="dropdown-header">Formations</li>
             <li><a href="{{ path('mgate_formations_lister') }}"><span class="glyphicon glyphicon-book"></span> Voir les formations</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-book"></span><s> Wiki {{ junior['abbr'] }}</s></a></li>
 
             {% if is_granted('ROLE_CA') %}
             <li class="divider"></li>
@@ -199,11 +201,23 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
     {% endif %}
 
     <!-- COMMUNICATION -->
-    {% if is_granted('ROLE_CA') %}
+    {% if is_granted('ROLE_MEMBRE') %}
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Communication<b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="{{ path('emagine_com_homepage') }}"><span class="glyphicon glyphicon-globe"></span> Future module</a></li>
+            <li class="dropdown-header">Communication Interne</li>
+            <li><a href="{{ path('emagine_com_homepage') }}"><span class="glyphicon glyphicon-bookmark"></span><s> Actualité {{ junior['abbr'] }}</s></a></li>
+            <li><a href="{{ path('emagine_com_homepage') }}"><span class="glyphicon glyphicon-calendar"></span><s> Les évènement</s></a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Utilitaire communication</li>
+            <li><a href="{{ path('emagine_com_charte') }}"><span class="glyphicon glyphicon-edit"></span><s> Charte graphique</s></a></li>
+
+            {% if is_granted('ROLE_CA') %}
+                <li class="divider"></li>
+                <li class="dropdown-header">Administration</li>
+                <li><a href="{{ path('mgatePersonne_annuaire') }}"><span class="glyphicon glyphicon-book"></span><s> Gérer le Blog</s></a></li>
+                <li><a href="{{ path('mgatePersonne_listeDiffusion') }}"><span class="glyphicon glyphicon-envelope"></span><s> Gérer le Calendrier</s></a></li>
+            {% endif %}
         </ul>
     </li>
     {% endif %}
