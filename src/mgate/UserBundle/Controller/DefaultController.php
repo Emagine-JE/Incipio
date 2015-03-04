@@ -109,7 +109,6 @@ class DefaultController extends Controller
         
     }
 
-    
     /**
      * @Secure(roles="ROLE_ADMIN")
      */    
@@ -148,7 +147,6 @@ class DefaultController extends Controller
             ->getForm()
         ;
     }
-
 
     /**
      * @Secure(roles="ROLE_ADMIN")

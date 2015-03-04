@@ -28,8 +28,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     public function indexAction()
-    {        
-        return $this->render('mgateDashboardBundle:Default:index.html.twig');
+    {   
+
+        if ($this->get('security.context')->isGranted('ROLE_MEMBRE')) {
+            return $this->render('mgateDashboardBundle:Default:index.html.twig');
+        }
+
+        //page pour les utilisateur qui n'on pa complété l'inscription
+        return $this->render('mgateDashboardBundle:Default:indexUser.html.twig');
+        
     }
 
 
