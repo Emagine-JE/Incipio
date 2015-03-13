@@ -24,18 +24,37 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 namespace mgate\DashboardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use mgate\PersonneBundle\Entity\Personne;
 
 class DefaultController extends Controller
 {
     public function indexAction()
     {   
 
-        if ($this->get('security.context')->isGranted('ROLE_MEMBRE')) {
+        // On récupère le service
+        $security = $this->get('security.context');
+
+        // On récupère le token
+        $token = $security->getToken();
+
+        // on récupère l'utilisateur
+        $user = $token->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $personne = $em->getRepository('mgatePersonneBundle:Personne')->findByUser($user->getId());
+
+        //page pour les membres
+        if (($security->isGranted('ROLE_MEMBRE') && !empty($personne)) 
+            || $security->isGranted('ROLE_ADMIN')) {
             return $this->render('mgateDashboardBundle:Default:index.html.twig');
         }
 
-        //page pour les utilisateur qui n'on pa complété l'inscription
-        return $this->render('mgateDashboardBundle:Default:indexUser.html.twig');
+        //page pour les utilisateur qui n'ont pas complété l'inscription
+        return $this->render('mgateDashboardBundle:Default:indexUser.html.twig',array(
+            'hasPersonne'       => !empty($personne),
+            'hasInscription'    =>  false,
+        ));
         
     }
 
@@ -57,6 +76,4 @@ class DefaultController extends Controller
         
         return $this->render('mgateDashboardBundle:Navbar:layout.html.twig', array('etudesSuiveur' => $etudesSuiveur));
     }
-
-
 }
