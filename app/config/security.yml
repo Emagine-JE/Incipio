@@ -74,7 +74,7 @@ security:
         - { path: ^/suivi/*, role: ROLE_SUIVEUR }
 
         # PAGES ACCESSIBLES AUX membre
-        - { path: ^/membre/, role: ROLE_MEMBRE }
+        - { path: ^/espace-membre/, role: ROLE_MEMBRE }
 
         # PAGES ACCESSIBLES AUX UTILISATEURS CONNECTES
         - { path: ^/.*, role: ROLE_USER }

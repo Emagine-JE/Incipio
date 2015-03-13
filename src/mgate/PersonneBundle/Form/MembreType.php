@@ -30,6 +30,13 @@ use mgate\PersonneBundle\Form\Type\SexeType as SexeType;
 
 class MembreType extends AbstractType {
 
+    //formulaire admin avec poste et cc ->true
+    private $formType_advanced = false;
+
+    public function __construct($adv){
+        $this->formType_advanced = $adv;
+    }
+
     public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('personne', new PersonneType(), array('label' => ' ', 'user' => true))
@@ -40,19 +47,23 @@ class MembreType extends AbstractType {
                 ->add('lieuDeNaissance', 'text', array('label' => 'Lieu de naissance', 'required' => false))
 				->add('nationalite', 'genemu_jqueryselect2_country', array('label' => 'Nationalité', 'required' => true, 'preferred_choices' => array('FR')))
                 ->add('appartement', 'text', array('label' => 'Appartement', 'required' => false))
-                ->add('mandats', 'collection', array(
-                    'type' => new MandatType,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'prototype' => true,
-                    'by_reference' => false, //indispensable cf doc
-                ))
-                ->add('dateConventionEleve', 'genemu_jquerydate', array('label' => 'Date de Signature de la Convention Elève', 'format' => 'dd/MM/yyyy', 'required' => false, 'widget' => 'single_text'))
                 ->add('photo', 'file', array(
                     'mapped' => false,
                     'required' => false,
                     'label' => 'Modifier la photo de profil du membre',
                 ));
+
+                if($this->formType_advanced){
+                    $builder->add('dateConventionEleve', 'genemu_jquerydate', array('label' => 'Date de Signature de la Convention Elève', 'format' => 'dd/MM/yyyy', 'required' => false, 'widget' => 'single_text'))
+                            ->add('mandats', 'collection', array(
+                                'type' => new MandatType,
+                                'allow_add' => true,
+                                'allow_delete' => true,
+                                'prototype' => true,
+                                'by_reference' => false, //indispensable cf doc
+                            ));
+                }
+
                         
     }
 

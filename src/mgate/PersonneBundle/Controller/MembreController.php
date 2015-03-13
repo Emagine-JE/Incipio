@@ -111,17 +111,40 @@ class MembreController extends Controller {
         ));
     }
 
-    /*
-     * Ajout ET modification des membres (create if membre not existe )
-     */
-
-    /**
-     * @Secure(roles="ROLE_SUIVEUR")
-     */
     public function modifierAction($id) {
+
+        //Paramètres de contrôles
+        $security = $this->get('security.context');
         $em = $this->getDoctrine()->getManager();
         $documentManager = $this->get('mgate.documentManager');
+        $hasROLE_CA = $security->isGranted('ROLE_CA');
 
+        // On récupère le token
+        $token = $security->getToken();
+        // on récupère l'utilisateur
+        $user = $token->getUser();
+
+        //securité utilisateur non CA
+        if(!$hasROLE_CA){
+            $personne = $em->getRepository('mgatePersonneBundle:Personne')->findOneByUser($user->getId());
+
+            //c'est une édition ou une creation (0 => creation)
+            if($id == 0){
+                //l'utilisateur ne peux pas créer un nouveau profile si il en en déjà un
+                if(!empty($personne)){
+                    return $this->redirect($this->generateUrl('homepage'));
+                }
+            }else{
+                $membre = $personne->getMembre();
+                //L'utilisateur n'édit pas sont propre profile
+                if($membre->getId() != $id){
+                    return $this->redirect($this->generateUrl('homepage'));
+                }
+            }
+        }
+
+
+        //create
         if (!$membre = $em->getRepository('mgate\PersonneBundle\Entity\Membre')->find($id)) {
             $membre = new Membre;
             
@@ -136,21 +159,25 @@ class MembreController extends Controller {
         }
         
         // Mail étudiant
-        if(!$membre->getEmailEMSE())  
+        if(!$membre->getEmailEMSE()){
             $membre->setEmailEMSE($this->getEmailEtu($membre));
-        //
+        }
 
-        $form = $this->createForm(new MembreType, $membre);
+        //creation du formulaire
+        $form = $this->createForm(new MembreType($hasROLE_CA), $membre);           
+
+        //suppression membre
         $deleteForm = $this->createDeleteForm($id);
-
+        //suppression cascade manda (AC)
         $mandatsToRemove = $membre->getMandats()->toArray();
 
-        $form = $this->createForm(new MembreType, $membre);
-
+        //reponse au formulaire POST
         if ($this->get('request')->getMethod() == 'POST') {
+
             $form->bind($this->get('request'));
             $photoUpload = $form->get('photo')->getData();
             
+            //validation
             if ($form->isValid()) {
                 
                 // TODO TOREMOVE Specifique EMSE
@@ -171,7 +198,6 @@ class MembreController extends Controller {
                 else
                     $path = '';
                 $promo = $membre->getPromotion();
-                
                                
                 /**
                  * Traitement de l'image de profil
@@ -197,9 +223,9 @@ class MembreController extends Controller {
                 }                
 
                 /**
-                 * Traitement des postes
+                 * Traitement des postes si l'utilisateur a le niveau de secu suffisant
                  */
-                if ($this->get('request')->get('add')) {
+                if ($hasROLE_CA && $this->get('request')->get('add')) {
                     $mandatNew = new Mandat;
                     $poste = $em->getRepository('mgate\PersonneBundle\Entity\Poste')->findOneBy(array("intitule" => "Membre"));
                     $dt = new \DateTime("now");
@@ -214,6 +240,9 @@ class MembreController extends Controller {
                     $membre->addMandat($mandatNew);
                 }
 
+                /**
+                 * Création des Identifiants
+                 */
                 if (!$membre->getIdentifiant()) {
                     $initial = substr($membre->getPersonne()->getPrenom(), 0, 1) . substr($membre->getPersonne()->getNom(), 0, 1);
                     $ident = count($em->getRepository('mgate\PersonneBundle\Entity\Membre')->findBy(array("identifiant" => $initial))) + 1;
@@ -222,9 +251,21 @@ class MembreController extends Controller {
                     $membre->setIdentifiant(strtoupper($initial . $ident));
                 }
                 
-                if(isset($now)){ // Si c'est un nouveau membre et qu'on ajoute un poste
+                /**
+                 * Si c'est un nouveau membre et qu'on ajoute un poste
+                 */
+                if(isset($now)){
                     $em->persist($membre);
-                    $em->flush();                   
+                    $em->flush();
+
+                    //un utilisateur créer son profile
+                    if($id == 0 && !$hasROLE_CA){
+                        $userManager = $this->get('fos_user.user_manager');
+                        $membre = $em->getRepository('mgatePersonneBundle:Membre')->findOneByIdentifiant($membre->getIdentifiant());
+                        $user->setPersonne($membre->getPersonne());
+                        $userManager->updateUser($user);
+                    } 
+
                     return $this->redirect($this->generateUrl('mgatePersonne_membre_modifier', array('id' => $membre->getId())));                    
                 }
                 
@@ -239,19 +280,25 @@ class MembreController extends Controller {
                 foreach ($mandatsToRemove as $mandat){
                     $em->remove($mandat);
                 }
-                
 
                 $em->persist($membre); // persist $etude / $form->getData()
-                $em->flush();
-                
-                $form = $this->createForm(new MembreType(), $membre);
+                $em->flush();  
+            }else{
+                //formulaire invalise 
+                //TODO message Flash
+                var_dump($form->getErrorsAsString(1));die();
             }
         }
+
+
         // TODO A modifier, l'ajout de poste dois se faire en js cf formation membre
         //if ($this->get('request')->get('save'))
          //   return $this->redirect($this->generateUrl('mgatePersonne_membre_voir', array('id' => $membre->getId())));
-        
-        return $this->render('mgatePersonneBundle:Membre:modifier.html.twig', array(
+  
+        //creation du formulaire      
+        //$form = $this->createForm(new MembreType($hasROLE_CA), $membre);
+
+    return $this->render('mgatePersonneBundle:Membre:modifier.html.twig', array(
                     'form' => $form->createView(),
                     'delete_form' => $deleteForm->createView(),
                     'photoURI' => $membre->getPhotoURI(),

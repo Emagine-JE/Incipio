@@ -47,8 +47,8 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
             <li class="divider"></li>
             <li class="dropdown-header">SecG</li>
             <li><a href="{{ path('mgatePersonne_membre_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un membre</a></li>
-            <li><a href="{{ path('emagine_sec_g_adhesion_checker') }}"><span class="glyphicon glyphicon-ok-sign"></span><s> d’Adhésion Checker</s></a></li>
-            <li><a href="{{ path('emagine_sec_g_adhesion_checker') }}"><span class="glyphicon glyphicon-folder-open"></span><s> Compte rendu</s></a></li>
+            <li><a href="{{ path('emagine_secG_AdhesionChecker_index') }}"><span class="glyphicon glyphicon-ok-sign"></span><s> d’Adhésion Checker</s></a></li>
+            <li><a href="{{ path('emagine_secG_AdhesionChecker_index') }}"><span class="glyphicon glyphicon-folder-open"></span><s> Compte rendu</s></a></li>
             {% endif %}
 
         </ul>
@@ -237,6 +237,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
             <li class="dropdown-header">Configuration</li>
             <li><a href="{{ path('mgatePersonne_poste_homepage') }}"><span class="glyphicon glyphicon-list"></span> Postes</a></li>
             <li><a href="{{ path('mgateSuivi_domaine_index') }}"><span class="glyphicon glyphicon-list"></span> Domaines de compétence</a></li>
+            <li><a href="{{ path('emagine_secG_AdhesionChecker_add_category') }}"><span class="glyphicon glyphicon-list"></span> Adhésion Checker</a></li>
         </ul>
     </li>
     {% endif %}

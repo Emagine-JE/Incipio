@@ -19,20 +19,12 @@ You should have received a copy of the GNU Affero General Public License
 along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/licenses/>.
 #}
 
-{% extends "mgatePersonneBundle::layout.html.twig" %}
-
-{% block content_bundle %}
-
-  <h2>Ajouter un Poste {{ junior['abbr'] }}</h2>
+<h2>Ajouter un Poste à {{ junior['nom'] }}</h2>
 
 <form method="post" {{ form_enctype(form) }}>
 	
 	{{ form_widget(form) }}
 	
-	<input type="submit" />
+	<input type="submit" class="btn btn-success"/>
 </form>
- 
 
-
-
-{% endblock %}
