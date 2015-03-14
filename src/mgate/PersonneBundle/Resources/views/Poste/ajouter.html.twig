@@ -21,10 +21,9 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 <h2>Ajouter un Poste à {{ junior['nom'] }}</h2>
 
-<form method="post" {{ form_enctype(form) }}>
+<form method="post" action="{{ path('mgatePersonne_poste_ajouter') }}" {{ form_enctype(form) }}>
 	
 	{{ form_widget(form) }}
 	
 	<input type="submit" class="btn btn-success"/>
 </form>
-

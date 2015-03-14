@@ -64,20 +64,18 @@ class PosteController extends Controller
     }
     
     /**
+     * Affiche la liste des pages et permet aux admin d'ajouter un poste
      * @Secure(roles="ROLE_SUIVEUR")
      */    
     public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('mgatePersonneBundle:Poste')->findAll();
 
          // On récupère le service
         $security = $this->get('security.context');
-
         // On récupère le token
         $token = $security->getToken();
-
         // on récupère l'utilisateur
         $user = $token->getUser();
 
@@ -168,6 +166,7 @@ class PosteController extends Controller
             if( ! $entity = $em->getRepository('mgate\PersonneBundle\Entity\Poste')->find($id) )
                 throw $this->createNotFoundException('Le poste demandé n\'existe pas !');
             
+            var_dump($entity->getMembres());die();
             foreach($entity->getMembres() as $membre)
                     $membre->setPoste(null);
 
