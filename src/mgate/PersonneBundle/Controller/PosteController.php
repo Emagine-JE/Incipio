@@ -166,7 +166,6 @@ class PosteController extends Controller
             if( ! $entity = $em->getRepository('mgate\PersonneBundle\Entity\Poste')->find($id) )
                 throw $this->createNotFoundException('Le poste demandé n\'existe pas !');
             
-            var_dump($entity->getMembres());die();
             foreach($entity->getMembres() as $membre)
                     $membre->setPoste(null);
 

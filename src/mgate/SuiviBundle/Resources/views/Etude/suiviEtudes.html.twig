@@ -21,10 +21,6 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
-{% block title %}
-Récapitulatif - Suivi d'étude - {{ parent() }}
-{% endblock %}
-
 {% block content_bundle %}
 <form method="post" {{ form_enctype(form) }}>
     <div id="ganttChart" style="width: 100%;"></div>

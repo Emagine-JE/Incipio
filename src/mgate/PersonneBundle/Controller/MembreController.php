@@ -111,6 +111,12 @@ class MembreController extends Controller {
         ));
     }
 
+    /**
+     * Modification ou création d'un membre
+     * deux niveaux d'utiliations :
+     * USER -> rattacher un profile membre à son compte ou modifier son profile
+     * CA   -> créer un membre
+     */
     public function modifierAction($id) {
 
         //Paramètres de contrôles
@@ -142,8 +148,7 @@ class MembreController extends Controller {
                 }
             }
         }
-
-
+ 
         //create
         if (!$membre = $em->getRepository('mgate\PersonneBundle\Entity\Membre')->find($id)) {
             $membre = new Membre;
@@ -194,11 +199,11 @@ class MembreController extends Controller {
                             '_',
                         mb_strtolower($membre->getPersonne()->getPrenom(), 'UTF-8')
                     );
-                }
-                else
+                }else{
                     $path = '';
-                $promo = $membre->getPromotion();
-                               
+                }
+
+                $promo = $membre->getPromotion();             
                 /**
                  * Traitement de l'image de profil
                  */
@@ -211,14 +216,13 @@ class MembreController extends Controller {
                     if($photoUpload){
                         $document = $documentManager->uploadDocumentFromFile($photoUpload, $authorizedMIMEType, $name, $photoInformation, true);
                         $membre->setPhotoURI($document->getWebPath());
-                    }
-                    elseif(!$membre->getPhotoURI() && $promo != null && $membre->getPersonne()){ // Spécifique EMSE
-                        $ressourceURL = 'http://ismin.emse.fr/ismin/Photos/P'.urlencode($path);
-                        $headers = get_headers($ressourceURL);
-                        if(preg_match('#200#', $headers[0])){
-                            $document = $documentManager->uploadDocumentFromUrl($ressourceURL, $authorizedMIMEType, $name, $photoInformation, true);
-                            $membre->setPhotoURI($document->getWebPath());
-                        }
+                    }elseif(!$membre->getPhotoURI() && $promo != null && $membre->getPersonne()){ // Spécifique EMSE
+                        //$ressourceURL = 'http://ismin.emse.fr/ismin/Photos/P'.urlencode($path);
+                        //$headers = get_headers($ressourceURL);
+                        //if(preg_match('#200#', $headers[0])){
+                            //$document = $documentManager->uploadDocumentFromUrl($ressourceURL, $authorizedMIMEType, $name, $photoInformation, true);
+                            //$membre->setPhotoURI($document->getWebPath());
+                        //}
                     }                    
                 }                
 
@@ -295,15 +299,14 @@ class MembreController extends Controller {
         //if ($this->get('request')->get('save'))
          //   return $this->redirect($this->generateUrl('mgatePersonne_membre_voir', array('id' => $membre->getId())));
   
-        //creation du formulaire      
-        //$form = $this->createForm(new MembreType($hasROLE_CA), $membre);
+        //creation du formulaire pour ajouter de nouveau poste (astuce étrange) 
+        $form = $this->createForm(new MembreType($hasROLE_CA), $membre);
 
-    return $this->render('mgatePersonneBundle:Membre:modifier.html.twig', array(
+        return $this->render('mgatePersonneBundle:Membre:modifier.html.twig', array(
                     'form' => $form->createView(),
                     'delete_form' => $deleteForm->createView(),
                     'photoURI' => $membre->getPhotoURI(),
-                ));
-             
+                ));            
     }
 
     /**

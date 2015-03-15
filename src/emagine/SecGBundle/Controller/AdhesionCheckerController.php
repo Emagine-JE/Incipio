@@ -8,6 +8,8 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use emagine\SecGBundle\Entity\AdhesionCheckerCategory;
 use emagine\SecGBundle\Form\AdhesionCheckerCategoryType;
 
+use mgate\PersonneBundle\Entity\Membre;
+
 class AdhesionCheckerController extends Controller
 {
     /**
@@ -15,10 +17,13 @@ class AdhesionCheckerController extends Controller
     */
     public function indexAction()
     {
-
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('emagineSecGBundle:AdhesionCheckerCategory')->findAll();
+        $membres = $em->getRepository('mgatePersonneBundle:Membre')->getCotisants();
 
         return $this->render('emagineSecGBundle:AdhesionChecker:index.html.twig', array(
-                
+               "categories" => $categories,
+               "membres"    => $membres,
         ));    
     }
 

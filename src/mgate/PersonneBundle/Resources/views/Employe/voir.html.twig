@@ -21,10 +21,6 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 {% extends "mgatePersonneBundle::layout.html.twig" %}
 
-{% block title %}
-	Affichage d'un Employé - {{ parent() }}
-{% endblock %}
-
 {% block content_bundle %}
 <p>
 	<h2>{{ employe.personne.sexe }} {{ employe.personne.nom }} {{ employe.personne.prenom }}</h2>
