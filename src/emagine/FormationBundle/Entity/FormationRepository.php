@@ -21,7 +21,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 */
 
 
-namespace mgate\FormationBundle\Entity;
+namespace emagine\FormationBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

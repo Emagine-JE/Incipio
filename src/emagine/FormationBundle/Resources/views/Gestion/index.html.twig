@@ -19,7 +19,7 @@ You should have received a copy of the GNU Affero General Public License
 along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/licenses/>.
 #}
 
-{% extends "mgateFormationBundle::layout.html.twig" %}
+{% extends "emagineFormationBundle::layout.html.twig" %}
 {% block content_bundle %}
 <h2>Formations - Espace Admin</h2>
 
@@ -37,7 +37,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
     <tr>
         <td><i class="glyphicon glyphicon-circle-arrow-down"></i></td>
         <td>{{ formation.dateDebut | date("d/m/Y") }}</td>
-        <td><a title="Modifier" href="{{ path('mgate_formation_modifier', {'id': formation.id})}}">{{ formation.titre | title }}</a></td>
+        <td><a title="Modifier" href="{{ path('emagine_formation_modifier', {'id': formation.id})}}">{{ formation.titre | title }}</a></td>
         <td>{{ formation.description }}</td>
         <td>{%for membre in formation.formateurs %} {{membre.prenomNom}};{%endfor%}</td>
         <td>{% set date =  ((formation.dateFin | date("U")) - (formation.dateDebut | date("U"))) / 60 %}{{ date }} minutes</td>

@@ -169,7 +169,9 @@ class MembreController extends Controller {
         }
 
         //creation du formulaire
-        $form = $this->createForm(new MembreType($hasROLE_CA), $membre);           
+        $membreType = new MembreType();
+        $membreType->setAdvType($hasROLE_CA);
+        $form = $this->createForm($membreType , $membre);           
 
         //suppression membre
         $deleteForm = $this->createDeleteForm($id);
@@ -300,7 +302,9 @@ class MembreController extends Controller {
          //   return $this->redirect($this->generateUrl('mgatePersonne_membre_voir', array('id' => $membre->getId())));
   
         //creation du formulaire pour ajouter de nouveau poste (astuce étrange) 
-        $form = $this->createForm(new MembreType($hasROLE_CA), $membre);
+        $membreType = new MembreType();
+        $membreType->setAdvType($hasROLE_CA);
+        $form = $this->createForm($membreType , $membre);   
 
         return $this->render('mgatePersonneBundle:Membre:modifier.html.twig', array(
                     'form' => $form->createView(),

@@ -20,41 +20,41 @@ You should have received a copy of the GNU Affero General Public License
 along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace mgate\FormationBundle\Controller;
+namespace emagine\FormationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use mgate\FormationBundle\Form\FormationType;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use mgate\FormationBundle\Entity\Formation;
+use emagine\FormationBundle\Entity\Formation;
+use emagine\FormationBundle\Form\FormationType;
 
 class FormationController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('mgateFormationBundle:Formation')->findBy(array(), array('dateDebut' => 'DESC'));
+        $entities = $em->getRepository('emagineFormationBundle:Formation')->findBy(array(), array('dateDebut' => 'DESC'));
       
-        return $this->render('mgateFormationBundle:Gestion:index.html.twig', array(
+        return $this->render('emagineFormationBundle:Gestion:index.html.twig', array(
             'formations' => $entities,
         ));
     }
     
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     public function listerAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $formationsParMandat = $em->getRepository('mgateFormationBundle:Formation')->findAllByMandat();
+        $formationsParMandat = $em->getRepository('emagineFormationBundle:Formation')->findAllByMandat();
               
-        return $this->render('mgateFormationBundle:Formations:lister.html.twig', array(
+        return $this->render('emagineFormationBundle:Formations:lister.html.twig', array(
             'formationsParMandat' => $formationsParMandat,
         ));
     }
@@ -65,10 +65,10 @@ class FormationController extends Controller
     public function voirAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        if( ! $formation = $em->getRepository('mgate\FormationBundle\Entity\Formation')->find($id) )
+        if( ! $formation = $em->getRepository('emagine\FormationBundle\Entity\Formation')->find($id) )
             throw $this->createNotFoundException('La formation demandée n\'existe pas !');
       
-        return $this->render('mgateFormationBundle:Formations:voir.html.twig', array(
+        return $this->render('emagineFormationBundle:Formations:voir.html.twig', array(
             'formation' => $formation,
         ));
     }
@@ -80,7 +80,7 @@ class FormationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if( ! $formation = $em->getRepository('mgate\FormationBundle\Entity\Formation')->find($id) )
+        if( ! $formation = $em->getRepository('emagine\FormationBundle\Entity\Formation')->find($id) )
             $formation = new Formation;
 
       
@@ -99,7 +99,7 @@ class FormationController extends Controller
             }
         }
         
-        return $this->render('mgateFormationBundle:Gestion:modifier.html.twig', array(
+        return $this->render('emagineFormationBundle:Gestion:modifier.html.twig', array(
             'form' => $form->createView(),
             'formation' => $formation,
         ));
@@ -112,7 +112,7 @@ class FormationController extends Controller
     public function participationAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $formationsParMandat = $em->getRepository('mgateFormationBundle:Formation')->findAllByMandat();
+        $formationsParMandat = $em->getRepository('emagineFormationBundle:Formation')->findAllByMandat();
         
         $choices = array();
         foreach ($formationsParMandat as $key => $value){
@@ -156,7 +156,7 @@ class FormationController extends Controller
         }
         
               
-        return $this->render('mgateFormationBundle:Gestion:participation.html.twig', array(
+        return $this->render('emagineFormationBundle:Gestion:participation.html.twig', array(
             'form' => $form->createView(),
             'formations' => $formations,
             'presents' => $presents,
@@ -169,12 +169,11 @@ class FormationController extends Controller
     public function supprimerAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        if( ! $formation = $em->getRepository('mgate\FormationBundle\Entity\Formation')->find($id) )
+        if( ! $formation = $em->getRepository('emagine\FormationBundle\Entity\Formation')->find($id) )
             throw $this->createNotFoundException('La formation demandée n\'existe pas !');
 
         $em->remove($formation);                
         $em->flush();
-        return $this->redirect($this->generateUrl('mgate_formations_lister', array()));
-      
+        return $this->redirect($this->generateUrl('emagine_formations_lister', array())); 
     }
 }

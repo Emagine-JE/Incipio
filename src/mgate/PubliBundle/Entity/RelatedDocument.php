@@ -57,7 +57,7 @@ class RelatedDocument
     private $etude;
     
     /**
-     * @ORM\ManyToOne(targetEntity="mgate\FormationBundle\Entity\Formation", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="emagine\FormationBundle\Entity\Formation", cascade={"persist"})
      * @ORM\JoinColumn(name="formation_id", referencedColumnName="id", nullable=true)
      */
     private $formation;

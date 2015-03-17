@@ -1,0 +1,33 @@
+emagine_formations_index_admin:
+    pattern:  /ca/formations
+    defaults: { _controller: emagineFormationBundle:Formation:index}
+
+emagine_formations_lister:
+    pattern:  /formations
+    defaults: { _controller: emagineFormationBundle:Formation:lister}
+
+emagine_formation_voir:
+    pattern:  /formations/{id}
+    defaults: { _controller: emagineFormationBundle:Formation:voir }
+    requirements:
+        id: \d+
+
+emagine_formation_ajouter:
+    pattern:  /ca/formations/ajouter
+    defaults: { _controller: emagineFormationBundle:Formation:modifier, id : -1}
+
+emagine_formation_modifier:
+    pattern:  /ca/formations/modifier/{id}
+    defaults: { _controller: emagineFormationBundle:Formation:modifier }
+    requirements:
+        id: \d+
+
+emagine_formation_supprimer:
+    pattern:  /ca/formations/supprimer/{id}
+    defaults: { _controller: emagineFormationBundle:Formation:supprimer }
+    requirements:
+        id: \d+
+
+emagine_formation_participation:
+    pattern:  /formations/participation
+    defaults: { _controller: emagineFormationBundle:Formation:participation }

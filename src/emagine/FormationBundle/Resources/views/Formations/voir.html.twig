@@ -19,7 +19,7 @@ You should have received a copy of the GNU Affero General Public License
 along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/licenses/>.
 #}
 
-{% extends "mgateFormationBundle::layout.html.twig" %}
+{% extends "emagineFormationBundle::layout.html.twig" %}
 {% block content_bundle %}
 <h2>Formations {{ junior['abbr'] }}</h2>
 
@@ -36,11 +36,11 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 <table class="table">
     <tr>
         {% if is_granted('ROLE_CA') %}
-        <td style="text-align: left;"><button type="button" class="btn btn-primary" onclick="location.href='{{ path('mgate_formation_modifier', {'id': formation.id})}}';">Modifier la Formation</button></td>
+        <td style="text-align: left;"><button type="button" class="btn btn-primary" onclick="location.href='{{ path('emagine_formation_modifier', {'id': formation.id})}}';">Modifier la Formation</button></td>
         {% endif %}
         <td style="text-align: center;"><button class="btn btn-success">Télécharger les documents</button></td>
         {% if is_granted('ROLE_ADMIN') %}
-        <td style="text-align: right;"><button type="button" class="btn btn-danger" onclick="location.href='{{ path('mgate_formation_supprimer', {'id': formation.id})}}';">Supprimer la Formation</button></td>
+        <td style="text-align: right;"><button type="button" class="btn btn-danger" onclick="location.href='{{ path('emagine_formation_supprimer', {'id': formation.id})}}';">Supprimer la Formation</button></td>
         {% endif %}
     </tr>
 </table>

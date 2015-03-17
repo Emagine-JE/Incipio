@@ -19,7 +19,7 @@ You should have received a copy of the GNU Affero General Public License
 along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/licenses/>.
 #}
 
-{% extends "mgateFormationBundle::layout.html.twig" %}
+{% extends "emagineFormationBundle::layout.html.twig" %}
 {% block content_bundle %}
 <h2>Formations {{ junior['abbr'] }}</h2>
 
@@ -42,7 +42,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         <td>{% if formation.docPath  %}<a href="{{formation.docPath }}"><i class="glyphicon glyphicon-circle-arrow-down"></i></a>{% endif%}</td>
         <td style="min-width: 300px;">{% for cat in formation.categorie %}{{ formation.categoriesChoiceToString[cat] }}<br /> {% endfor %}</td>
         <td>{{ formation.dateDebut | date("d/m/Y") }}</td>
-        <td><a href="{{ path('mgate_formation_voir', {'id': formation.id})}}">{{ formation.titre | title }}</a></td>
+        <td><a href="{{ path('emagine_formation_voir', {'id': formation.id})}}">{{ formation.titre | title }}</a></td>
         <td>{{ formation.description | nl2br }}</td>
         <td>{%for personne in formation.formateurs %} {{personne.prenomNom}};{%endfor%}</td>
         <td>{{ (formation.dateFin | date("U") - formation.dateDebut | date("U")) / 60}} minutes</td>

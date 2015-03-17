@@ -65,7 +65,7 @@ class PosteController extends Controller
     
     /**
      * Affiche la liste des pages et permet aux admin d'ajouter un poste
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Secure(roles="ROLE_MEMBRE")
      */    
     public function indexAction($page)
     {

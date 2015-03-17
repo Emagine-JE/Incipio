@@ -51,7 +51,7 @@ class RelatedDocumentType extends AbstractType {
                 ));
         if($options['formation'])
         $builder->add('formation', 'genemu_jqueryselect2_entity', array(
-                    'class' => 'mgate\FormationBundle\Entity\Formation',
+                    'class' => 'emagine\FormationBundle\Entity\Formation',
                     'property' => 'titre',
                     'required' => false,
                     'label' => 'Document lié à la formation',

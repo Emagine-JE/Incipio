@@ -21,7 +21,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 */
 
 
-namespace mgate\FormationBundle\Entity;
+namespace emagine\FormationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Formation
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="mgate\FormationBundle\Entity\FormationRepository")
+ * @ORM\Entity(repositoryClass="emagine\FormationBundle\Entity\FormationRepository")
  */
 class Formation {
 
