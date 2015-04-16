@@ -54,12 +54,13 @@ class AppKernel extends Kernel
             new mgate\DashboardBundle\mgateDashboardBundle(),
             new mgate\StatBundle\mgateStatBundle(),
             new mgate\TresoBundle\mgateTresoBundle(),
-            new mgate\FormationBundle\mgateFormationBundle(),
+            //new mgate\FormationBundle\mgateFormationBundle(),
 			new mgate\PersonneBundle\mgatePersonneBundle(),
             new mgate\CommentBundle\mgateCommentBundle(),
 			new mgate\SuiviBundle\mgateSuiviBundle(),
             new emagine\SecGBundle\emagineSecGBundle(),
             new emagine\ComBundle\emagineComBundle(),
+            new emagine\FormationBundle\emagineFormationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,0 +1,179 @@
+<?php
+        
+/*
+This file is part of Incipio.
+
+Incipio is an enterprise resource planning for Junior Enterprise
+Copyright (C) 2012-2014 Florian Lefevre.
+
+Incipio is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+Incipio is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+namespace emagine\FormationBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+
+use Symfony\Component\HttpFoundation\Request;
+
+use emagine\FormationBundle\Entity\Formation;
+use emagine\FormationBundle\Form\FormationType;
+
+class FormationController extends Controller
+{
+    /**
+     * @Secure(roles="ROLE_MEMBRE")
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('emagineFormationBundle:Formation')->findBy(array(), array('dateDebut' => 'DESC'));
+      
+        return $this->render('emagineFormationBundle:Gestion:index.html.twig', array(
+            'formations' => $entities,
+        ));
+    }
+    
+    /**
+     * @Secure(roles="ROLE_MEMBRE")
+     */
+    public function listerAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $formationsParMandat = $em->getRepository('emagineFormationBundle:Formation')->findAllByMandat();
+              
+        return $this->render('emagineFormationBundle:Formations:lister.html.twig', array(
+            'formationsParMandat' => $formationsParMandat,
+        ));
+    }
+    
+    /**
+     * @Secure(roles="ROLE_SUIVEUR")
+     */
+    public function voirAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if( ! $formation = $em->getRepository('emagine\FormationBundle\Entity\Formation')->find($id) )
+            throw $this->createNotFoundException('La formation demandée n\'existe pas !');
+      
+        return $this->render('emagineFormationBundle:Formations:voir.html.twig', array(
+            'formation' => $formation,
+        ));
+    }
+    
+    /**
+     * @Secure(roles="ROLE_CA")
+     */
+    public function modifierAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if( ! $formation = $em->getRepository('emagine\FormationBundle\Entity\Formation')->find($id) )
+            $formation = new Formation;
+
+      
+        $form = $this->createForm(new FormationType, $formation);
+        
+        if( $this->get('request')->getMethod() == 'POST' )
+        {
+            $form->bind($this->get('request'));
+               
+            if( $form->isValid() )
+            {
+                $em->persist($formation);
+                $em->flush();
+                
+                $form = $this->createForm(new FormationType(), $formation);
+            }
+        }
+        
+        return $this->render('emagineFormationBundle:Gestion:modifier.html.twig', array(
+            'form' => $form->createView(),
+            'formation' => $formation,
+        ));
+    }
+    
+    
+    /**
+     * @Secure(roles="ROLE_CA")
+     */
+    public function participationAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $formationsParMandat = $em->getRepository('emagineFormationBundle:Formation')->findAllByMandat();
+        
+        $choices = array();
+        foreach ($formationsParMandat as $key => $value){
+            $choices[$key] = $key;
+        }
+        
+        
+        $defaultData = array();
+        $form = $this->createFormBuilder($defaultData)
+                      ->add(
+                          'mandat', 
+                          'choice',
+                          array(
+                              'label'       =>'Présents aux formations du mandat ',
+                              'choices'     => $choices,
+                              'required'    =>true,
+                              )
+                      )->getForm();
+        
+        if ($request->isMethod('POST'))
+        { 
+            $form->bind($request);
+            $data = $form->getData();
+            $mandat = $data['mandat'];
+            $formations = array_key_exists($mandat, $formationsParMandat) ? $formationsParMandat[$mandat] : array();
+        }else{
+            $formations = count($formationsParMandat) ? reset($formationsParMandat) : array();
+        }
+
+        
+        $presents = array();
+        
+        foreach ($formations as $formation){
+            foreach($formation->getMembresPresents() as $present){
+                $id = $present->getPrenomNom();
+                if(array_key_exists($id, $presents)){
+                    $presents[$id][] = $formation->getId();
+                }else
+                     $presents[$id] = array($formation->getId());
+            }
+        }
+        
+              
+        return $this->render('emagineFormationBundle:Gestion:participation.html.twig', array(
+            'form' => $form->createView(),
+            'formations' => $formations,
+            'presents' => $presents,
+        ));
+    }
+    
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function supprimerAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if( ! $formation = $em->getRepository('emagine\FormationBundle\Entity\Formation')->find($id) )
+            throw $this->createNotFoundException('La formation demandée n\'existe pas !');
+
+        $em->remove($formation);                
+        $em->flush();
+        return $this->redirect($this->generateUrl('emagine_formations_lister', array())); 
+    }
+}

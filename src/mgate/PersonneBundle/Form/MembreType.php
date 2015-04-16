@@ -33,10 +33,6 @@ class MembreType extends AbstractType {
     //formulaire admin avec poste et cc ->true
     private $formType_advanced = false;
 
-    public function __construct($adv){
-        $this->formType_advanced = $adv;
-    }
-
     public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('personne', new PersonneType(), array('label' => ' ', 'user' => true))
@@ -75,6 +71,10 @@ class MembreType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'mgate\PersonneBundle\Entity\Membre',
         ));
+    }
+
+    public function setAdvType($adv){
+        $this->formType_advanced = $adv;
     }
 
 }

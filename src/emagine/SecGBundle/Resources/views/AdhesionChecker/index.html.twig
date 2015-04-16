@@ -1,7 +1,65 @@
-{% extends "::base.html.twig" %}
+{% extends "emagineSecGBundle::layout.html.twig" %}
 
-{% block title %}emagineSecGBundle:AdhesionChecker:index{% endblock %}
-
-{% block body %}
-<h1>Welcome to the AdhesionChecker:index page</h1>
+{% block javascript_quick %}
+{{ parent() }}
+    <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('js/adhesion_checker.js') }}"></script>
+    
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+    $('#example').dataTable({
+        "bPaginate": true,
+        "iDisplayLength": 100,
+        "aaSorting": [[0,'desc']],
+    });
+} );
+</script>
+	
 {% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/adhesion_checker.css') }}">
+{% endblock %}
+
+
+{% block content_bundle %}
+
+    <h2>Adhésion Checker</h2>
+
+    <p>Modification réalisé: <span id="modification"></span></p>
+
+    <table class="display dataTable table table-bordered" id="example">
+        <thead>
+          <tr>
+          	<th>Membre</th>
+          	{% for category in categories %}
+            <th>{{ category.nom }}</th>
+			{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for membre in membres %}
+        <tr>
+            <td>
+            	<a href="{{ path('mgatePersonne_membre_voir', {'id': membre.id}) }}">{{ membre.personne ? membre.personne.prenom }}  {{ membre.personne ? membre.personne.nom }}</a>
+
+            </td>
+            {% for category in categories %}
+                
+            
+                <td class="check unvalidated
+                {% for adhesion in membre.adhesions %}
+                {% if adhesion.id == category.id %} validated {% endif %}
+                {% endfor %}
+                    " membreid="{{ membre.id }}" categoryid="{{category.id}}">
+                    
+                </td>
+                
+			{% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}	

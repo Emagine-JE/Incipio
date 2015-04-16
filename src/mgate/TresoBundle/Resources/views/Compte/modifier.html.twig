@@ -20,12 +20,6 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 #}
 
 {% extends "mgateTresoBundle::layout.html.twig" %}
-
-{% block title %}
-	Gestion des comptes - {{ parent() }}
-{% endblock %}
-
-
     
 {% block content_bundle %}
     <h3>{{ compte.numero ? "Ajout d'un" :  "Modification du" }} compte {{ compte.numero  }} {{ compte.libelle }}</h3>

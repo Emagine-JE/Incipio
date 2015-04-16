@@ -1,0 +1,49 @@
+        
+{#
+This file is part of Incipio.
+
+Incipio is an enterprise resource planning for Junior Enterprise
+Copyright (C) 2012-2014 Florian Lefevre.
+
+Incipio is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+Incipio is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
+{% extends "emagineFormationBundle::layout.html.twig" %}
+{% block content_bundle %}
+<h2>Formations {{ junior['abbr'] }}</h2>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <td>{{ formation.dateDebut | date("d/m/Y") }}</td>
+        <td>{{ formation.titre | title }}</td>
+        <td>{{ formation.description }}</td>
+        <td>{%for membre in formation.formateurs %} {{membre.prenomNom}};{%endfor%}</td>
+        <td>{{ (formation.dateFin | date("u") - formation.dateDebut | date("u")) / 3600}} minutes</td>
+    </tr>
+</table>
+<br />
+<table class="table">
+    <tr>
+        {% if is_granted('ROLE_CA') %}
+        <td style="text-align: left;"><button type="button" class="btn btn-primary" onclick="location.href='{{ path('emagine_formation_modifier', {'id': formation.id})}}';">Modifier la Formation</button></td>
+        {% endif %}
+        <td style="text-align: center;"><button class="btn btn-success">Télécharger les documents</button></td>
+        {% if is_granted('ROLE_ADMIN') %}
+        <td style="text-align: right;"><button type="button" class="btn btn-danger" onclick="location.href='{{ path('emagine_formation_supprimer', {'id': formation.id})}}';">Supprimer la Formation</button></td>
+        {% endif %}
+    </tr>
+</table>
+
+
+{% endblock %}

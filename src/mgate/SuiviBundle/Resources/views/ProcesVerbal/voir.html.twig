@@ -21,10 +21,6 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
-{% block title %}
-	Affichage d'un PV - {{ parent() }}
-{% endblock %}
-
 {% block content_bundle %}
 
     <h2>Procès-Verbal {% if procesverbal.type=="pvi" %}Intermédiaire{%elseif procesverbal.type=="pvr"%}de Recette{%endif%} (id:{{ procesverbal.id }})</h2>

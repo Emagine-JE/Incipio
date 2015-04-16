@@ -21,12 +21,8 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
-{% block title %}
-	Gestion des notes de frais - {{ parent() }}
-{% endblock %}
-
 {% block content_bundle %}
-<h2>Formulaires</h2>
+<h2>Gestion des notes de frais</h2>
 <form method="post" {{ form_enctype(form) }}>
     <input name="save" type="submit" value="Enregistrer la Facture" class="btn" />
     <br/><br/>
