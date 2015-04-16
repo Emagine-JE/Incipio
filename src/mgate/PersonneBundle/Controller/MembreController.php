@@ -43,10 +43,16 @@ class MembreController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('mgatePersonneBundle:Membre')->findAll();
+        $categories = $em->getRepository('emagineSecGBundle:AdhesionCheckerCategory')
+                        ->createQueryBuilder('l') 
+                        ->select('COUNT(l)') 
+                        ->getQuery() 
+                        ->getSingleScalarResult();
         
         return $this->render('mgatePersonneBundle:Membre:index.html.twig', array(
-                    'membres' => $entities,
-                ));
+                    'membres'    => $entities,
+                    'categories' => $categories,
+        ));
     }
     
     /**

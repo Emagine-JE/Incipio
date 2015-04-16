@@ -3,15 +3,19 @@
 namespace emagine\SecGBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use emagine\SecGBundle\Entity\AdhesionCheckerCategory;
+use emagine\SecGBundle\Entity\Adhesion;
 use emagine\SecGBundle\Form\AdhesionCheckerCategoryType;
 
 use mgate\PersonneBundle\Entity\Membre;
 
 class AdhesionCheckerController extends Controller
 {
+    //TODO manque d'optimisation d'an l'affichage de l'adhesionChecker
     /**
      * @Secure(roles="ROLE_CA")
     */
@@ -103,4 +107,45 @@ class AdhesionCheckerController extends Controller
             ));    
    }
 
+   //AJAX
+   public function checkAction(Request $request){
+        if($request->isXmlHttpRequest()){
+
+            //TT
+            //$membreid = $request->query->get("membreid");
+            //$categoryid = $request->query->get("categoryid");
+            
+            $membreid = $request->request->get("membreid");
+            $categoryid = $request->request->get("categoryid");
+
+            $em = $this->getDoctrine()->getManager();
+            $repository = $em->getRepository('emagineSecGBundle:Adhesion');
+
+            $result = $repository->findOneBy([
+                'membreId'     => $membreid,
+                'categoryId'   => $categoryid,
+            ]);
+
+            if(is_null($result)){
+                $Adhesion = new Adhesion();
+                $Adhesion->setMembreId((int)$membreid);
+                $Adhesion->setCategoryId((int)$categoryid);
+                $Adhesion->setEtat(true);
+
+                $em->persist($Adhesion);
+                $em->flush();
+            }else{
+                $em->remove($result);
+                $em->flush();
+            }
+
+            //TT
+            //$referer = $this->getRequest()->headers->get('referer');
+            //return $this->redirect($referer);
+
+            return new Response();
+        }else{
+            throw $this->createNotFoundException('Vous ne pouvez pas acceder à cette page');
+        }
+   }
 }

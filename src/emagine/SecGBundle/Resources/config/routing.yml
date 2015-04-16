@@ -17,3 +17,7 @@ emagine_secG_AdhesionChecker_update_category:
     defaults: { _controller: emagineSecGBundle:AdhesionChecker:updateCategory }
     requirements:
         id: \d+
+
+emagine_secG_AdhesionChecker_check:
+    path:     /ca/AdhesionChecker/check
+    defaults: { _controller: emagineSecGBundle:AdhesionChecker:check }

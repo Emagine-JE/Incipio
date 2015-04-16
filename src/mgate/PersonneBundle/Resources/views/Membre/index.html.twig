@@ -42,6 +42,7 @@ $(document).ready(function() {
 {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/adhesion_checker.css') }}">
 {% endblock %}
 
 
@@ -83,7 +84,9 @@ $(document).ready(function() {
                     </td>            
                     <td>{{ membre.personne ? membre.personne.email }}</td>
                     <td>{{ membre.personne ? membre.personne.mobile }}</td>
-                    <td></td>
+                    <td class=" {%if membre.adhesions|length == categories %}validated{%else%}unvalidated{%endif%}">
+                        {{membre.adhesions|length}}/{{categories}}
+                    </td>
                   </tr>
             {% endfor %}
         </tbody>

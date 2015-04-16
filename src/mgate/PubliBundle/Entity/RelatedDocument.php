@@ -152,10 +152,10 @@ class RelatedDocument
     /**
      * Set formation
      *
-     * @param \mgate\FormationBundle\Entity\Formation $formation
+     * @param \emagine\FormationBundle\Entity\Formation $formation
      * @return CategorieDocument
      */
-    public function setFormation(\mgate\FormationBundle\Entity\Formation $formation = null)
+    public function setFormation(\emagine\FormationBundle\Entity\Formation $formation = null)
     {
         $this->formation = $formation;
     
@@ -165,7 +165,7 @@ class RelatedDocument
     /**
      * Get formation
      *
-     * @return \mgate\FormationBundle\Entity\Formation 
+     * @return \emagine\FormationBundle\Entity\Formation 
      */
     public function getFormation()
     {
