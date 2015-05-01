@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use emagine\SecGBundle\Entity\AdhesionCheckerCategory;
-use emagine\SecGBundle\Entity\Adhesion;
 use emagine\SecGBundle\Form\AdhesionCheckerCategoryType;
 
 use mgate\PersonneBundle\Entity\Membre;
@@ -119,20 +118,17 @@ class AdhesionCheckerController extends Controller
             $categoryid = $request->request->get("categoryid");
 
             $em = $this->getDoctrine()->getManager();
-            $repository = $em->getRepository('emagineSecGBundle:Adhesion');
+            $repositoryM = $em->getRepository('mgatePersonneBundle:Membre');
+            $repositoryA = $em->getRepository('emagineSecGBundle:AdhesionCheckerCategory');
 
-            $result = $repository->findOneBy([
-                'membreId'     => $membreid,
-                'categoryId'   => $categoryid,
-            ]);
 
-            if(is_null($result)){
-                $Adhesion = new Adhesion();
-                $Adhesion->setMembreId((int)$membreid);
-                $Adhesion->setCategoryId((int)$categoryid);
-                $Adhesion->setEtat(true);
+            $membre = $repositoryM->find($membreid);
+            $adhesion = $repositoryA->find($categoryid);
 
-                $em->persist($Adhesion);
+            if(!$membre->getAdhesions()->contains($adhesion)){
+                $membre->addAdhesion($adhesion);
+
+                $em->persist($membre);
                 $em->flush();
             }else{
                 $em->remove($result);
@@ -140,12 +136,12 @@ class AdhesionCheckerController extends Controller
             }
 
             //TT
-            //$referer = $this->getRequest()->headers->get('referer');
-            //return $this->redirect($referer);
+            $referer = $this->getRequest()->headers->get('referer');
+            return $this->redirect($referer);
 
             return new Response();
         }else{
-            throw $this->createNotFoundException('Vous ne pouvez pas acceder à cette page');
+            //throw $this->createNotFoundException('Vous ne pouvez pas acceder à cette page');
         }
    }
 }

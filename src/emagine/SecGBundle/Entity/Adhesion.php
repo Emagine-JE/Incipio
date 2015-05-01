@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Adhesion = membre_adhesioncheckercategory
  *
- * @ORM\Table()
+ * @ORM\Table(name="adhesion")
  * @ORM\Entity(repositoryClass="emagine\SecGBundle\Entity\AdhesionRepository")
  */
 class Adhesion

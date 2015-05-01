@@ -1,0 +1,24 @@
+{% extends "emagineComBundle::layout.html.twig" %}
+
+{% block content_bundle %}
+    <h1>{{entity.titre|striptags|title }}</h1>
+
+    <div class="bs-callout bs-callout-info">
+        <p>{{entity.contenu}}</p>
+    </div>
+    
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('wikipage') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('wikipage_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

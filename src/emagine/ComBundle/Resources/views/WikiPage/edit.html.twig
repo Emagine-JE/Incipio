@@ -1,0 +1,16 @@
+{% extends "emagineComBundle::layout.html.twig" %}
+
+{% block content_bundle %}
+    <h1>WikiPage edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('wikipage') }}">
+            Retourner à la liste des Pages
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

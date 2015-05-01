@@ -27,8 +27,14 @@ parameters:
         abbr:         ~
         id:           ~
         email:        ~
+        
         logo:         ~
         logo_min:     ~
+        inscription_img: ~
+
+        inscription_wikipage: '/wikipage/renseignement-JE'
+        renseignement_wikipage: '/wikipage/inscription-JE'
+
         adresse:      ~
         url:          ~
         ga_tracking:  ~

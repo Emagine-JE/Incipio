@@ -1,3 +1,7 @@
+emagine_com_wikipage:
+    resource: "@emagineComBundle/Resources/config/routing/wikipage.yml"
+    prefix:   /wikipage
+
 emagine_com_homepage:
     path:     /ca/communication
     defaults: { _controller: emagineComBundle:Default:index }

@@ -1,0 +1,30 @@
+wikipage:
+    path:     /
+    defaults: { _controller: "emagineComBundle:WikiPage:index" }
+
+wikipage_show:
+    path:     /{id}
+    defaults: { _controller: "emagineComBundle:WikiPage:show" }
+
+wikipage_new:
+    path:     /new
+    defaults: { _controller: "emagineComBundle:WikiPage:new" }
+
+wikipage_create:
+    path:     /create
+    defaults: { _controller: "emagineComBundle:WikiPage:create" }
+    methods:  POST
+
+wikipage_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "emagineComBundle:WikiPage:edit" }
+
+wikipage_update:
+    path:     /{id}/update
+    defaults: { _controller: "emagineComBundle:WikiPage:update" }
+    methods:  [POST, PUT]
+
+wikipage_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "emagineComBundle:WikiPage:delete" }
+    methods:  [POST, DELETE]

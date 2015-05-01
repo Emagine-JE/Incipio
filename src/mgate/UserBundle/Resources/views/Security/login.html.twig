@@ -26,8 +26,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
     <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
 {% endif %}
 
-<div class="left-container">
-  <div class="container">    
+<div class="col-lg-6 col-sm-12"> 
     <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin" role="form" style="text-align: center;">
         <img src="{{ junior['logo'] }}" width="300"/>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
@@ -39,7 +38,6 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
     </form>
-  </div>
   <p style="text-align: left;">
   {% if app.user %}
       <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
@@ -47,8 +45,8 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
       <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié</a>
   {% endif %}
 </p></div>
-<div class="right-container">
-    <a class='btn btn-lg btn-primary btn-block' href="">Me renseigner sur {{ junior['nom'] }}</a> 
+<div class="col-lg-6 col-sm-12">
+    <a class='btn btn-lg btn-primary btn-block' href="{{ junior['renseignement_wikipage'] }}">Me renseigner sur {{ junior['nom'] }}</a> 
     <img src="{{ junior['inscription_img'] }}" alt="" class="inscription_img">
     <a class='btn btn-lg btn-primary btn-block' href="{{ path('fos_user_registration_register') }}">Inscription</a> 
 </div>

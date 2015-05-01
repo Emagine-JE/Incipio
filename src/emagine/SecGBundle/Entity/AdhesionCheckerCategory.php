@@ -5,7 +5,7 @@ namespace emagine\SecGBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AdhesionCheckerCat‚gories
+ * AdhesionCheckerCategories
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="emagine\SecGBundle\Entity\AdhesionCheckerCategoryRepository")

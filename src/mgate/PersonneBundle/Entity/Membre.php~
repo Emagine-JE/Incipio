@@ -123,7 +123,7 @@ class Membre {
     private $photoURI;
 
     /**
-     * @ORM\OneToMany(targetEntity="emagine\SecGBundle\Entity\Adhesion", mappedBy="membre_id")
+     * @ORM\ManyToMany(targetEntity="emagine\SecGBundle\Entity\AdhesionCheckerCategory")
      **/
     private $adhesions;
 
@@ -482,4 +482,5 @@ class Membre {
     {
         return $this->photoURI;
     }
+
 }

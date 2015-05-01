@@ -48,12 +48,13 @@ $(document).ready(function() {
             </td>
             {% for category in categories %}
                 
+
             
                 <td class="check unvalidated
                 {% for adhesion in membre.adhesions %}
                 {% if adhesion.id == category.id %} validated {% endif %}
                 {% endfor %}
-                    " membreid="{{ membre.id }}" categoryid="{{category.id}}">
+                    " membreid="{{ membre.id }}" categoryid="{{category.id }}">
                     
                 </td>
                 

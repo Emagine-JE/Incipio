@@ -124,10 +124,6 @@ class Membre {
 
     /**
      * @ORM\ManyToMany(targetEntity="emagine\SecGBundle\Entity\AdhesionCheckerCategory")
-     * @ORM\JoinTable(name="adhesion",
-     *      joinColumns={@ORM\JoinColumn(name="membre_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
-     *      )
      **/
     private $adhesions;
 
@@ -487,13 +483,14 @@ class Membre {
         return $this->photoURI;
     }
 
+
     /**
      * Add adhesions
      *
-     * @param \emagine\SecGBundle\Entity\Adhesion $adhesions
+     * @param \emagine\SecGBundle\Entity\AdhesionCheckerCategory $adhesions
      * @return Membre
      */
-    public function addAdhesion(\emagine\SecGBundle\Entity\Adhesion $adhesions)
+    public function addAdhesion(\emagine\SecGBundle\Entity\AdhesionCheckerCategory $adhesions)
     {
         $this->adhesions[] = $adhesions;
     
@@ -503,9 +500,9 @@ class Membre {
     /**
      * Remove adhesions
      *
-     * @param \emagine\SecGBundle\Entity\Adhesion $adhesions
+     * @param \emagine\SecGBundle\Entity\AdhesionCheckerCategory $adhesions
      */
-    public function removeAdhesion(\emagine\SecGBundle\Entity\Adhesion $adhesions)
+    public function removeAdhesion(\emagine\SecGBundle\Entity\AdhesionCheckerCategory $adhesions)
     {
         $this->adhesions->removeElement($adhesions);
     }
