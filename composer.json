@@ -27,7 +27,8 @@
         "genemu/form-bundle": "v2.2.1",
         "gedmo/doctrine-extensions": "dev-master",        
         "jms/security-extra-bundle": "dev-master",
-        "stof/doctrine-extensions-bundle": "dev-master"               
+        "stof/doctrine-extensions-bundle": "dev-master",
+        "michelf/php-markdown": "^1.5"               
     },
     "scripts": {
         "post-install-cmd": [

@@ -136,8 +136,8 @@ class AdhesionCheckerController extends Controller
             }
 
             //TT
-            $referer = $this->getRequest()->headers->get('referer');
-            return $this->redirect($referer);
+            //$referer = $this->getRequest()->headers->get('referer');
+            //return $this->redirect($referer);
 
             return new Response();
         }else{

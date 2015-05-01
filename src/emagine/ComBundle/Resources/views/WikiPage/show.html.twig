@@ -1,24 +1,26 @@
 {% extends "emagineComBundle::layout.html.twig" %}
 
 {% block content_bundle %}
-    <h1>{{entity.titre|striptags|title }}</h1>
-
-    <div class="bs-callout bs-callout-info">
-        <p>{{entity.contenu}}</p>
+    <div class="page-header">
+        <h1>{{entity.titre|striptags|title }}</h1>
+        <div class="btn-group" role="group">
+            <a href="{{ path('wikipage') }}" class="btn btn-default">
+                Retourner à la liste des Pages
+            </a>
+            {% if is_granted('ROLE_SUIVEUR') %}
+                <a href="{{ path('wikipage_edit', { 'id': entity.id }) }}" class="btn btn-info">
+                    Editer
+                </a>
+            {% endif %}
+        </div>
     </div>
     
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('wikipage') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('wikipage_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <div class="bs-callout bs-callout-info">
+        <p>{{ contenu|raw }}</p>
+    </div>
+ 
+    {% if is_granted('ROLE_SUIVEUR') %}
+        {{ form(delete_form) }}
+    {% endif %}
 {% endblock %}

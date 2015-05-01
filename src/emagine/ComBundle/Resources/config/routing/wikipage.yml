@@ -2,10 +2,6 @@ wikipage:
     path:     /
     defaults: { _controller: "emagineComBundle:WikiPage:index" }
 
-wikipage_show:
-    path:     /{id}
-    defaults: { _controller: "emagineComBundle:WikiPage:show" }
-
 wikipage_new:
     path:     /new
     defaults: { _controller: "emagineComBundle:WikiPage:new" }
@@ -14,6 +10,10 @@ wikipage_create:
     path:     /create
     defaults: { _controller: "emagineComBundle:WikiPage:create" }
     methods:  POST
+
+wikipage_markdown_parser:
+    path:     /markdown
+    defaults: { _controller: "emagineComBundle:WikiPage:markdown" }
 
 wikipage_edit:
     path:     /{id}/edit
@@ -28,3 +28,7 @@ wikipage_delete:
     path:     /{id}/delete
     defaults: { _controller: "emagineComBundle:WikiPage:delete" }
     methods:  [POST, DELETE]
+
+wikipage_show:
+    path:     /{slug}
+    defaults: { _controller: "emagineComBundle:WikiPage:show" }

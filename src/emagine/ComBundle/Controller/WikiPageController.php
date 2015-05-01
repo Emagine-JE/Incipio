@@ -3,11 +3,14 @@
 namespace emagine\ComBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use emagine\ComBundle\Entity\WikiPage;
 use emagine\ComBundle\Form\WikiPageType;
+
+use \Michelf\MarkdownExtra;
 
 /**
  * WikiPage controller.
@@ -48,7 +51,7 @@ class WikiPageController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('wikipage_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('wikipage_show', array('slug' => $entity->getSlug())));
         }
 
         return $this->render('emagineComBundle:WikiPage:new.html.twig', array(
@@ -98,20 +101,21 @@ class WikiPageController extends Controller
      *
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      */
-    public function showAction($id)
+    public function showAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('emagineComBundle:WikiPage')->findOneBySlug($id);
+        $entity = $em->getRepository('emagineComBundle:WikiPage')->findOneBySlug($slug);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find WikiPage entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 
         return $this->render('emagineComBundle:WikiPage:show.html.twig', array(
             'entity'      => $entity,
+            'contenu'     => MarkdownExtra::defaultTransform($entity->getContenu()),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -183,7 +187,7 @@ class WikiPageController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('wikipage_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('wikipage_show', array('slug' => $entity->getSlug())));
         }
 
         return $this->render('emagineComBundle:WikiPage:edit.html.twig', array(
@@ -207,14 +211,21 @@ class WikiPageController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('emagineComBundle:WikiPage')->find($id);
 
-            if
-
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find WikiPage entity.');
             }
 
-            $em->remove($entity);
-            $em->flush();
+            if($entity->getProtected()){
+                $this->addFlash(
+                    'danger',
+                    'Vous ne pouvez pas supprimer une page protégée'
+                );
+            }else{
+                $em->remove($entity);
+                $em->flush();
+            }
+
+
         }
 
         return $this->redirect($this->generateUrl('wikipage'));
@@ -235,5 +246,13 @@ class WikiPageController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    public function markdownAction(Request $request){
+
+        $response = new Response(json_encode($request->request->get('data')));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return new Response($response);
     }
 }

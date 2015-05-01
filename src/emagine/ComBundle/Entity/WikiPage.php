@@ -2,10 +2,15 @@
 
 namespace emagine\ComBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * WikiPage
+ *
+ * @UniqueEntity("slug")
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="emagine\ComBundle\Entity\WikiPageRepository")
@@ -24,6 +29,8 @@ class WikiPage
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="titre", type="string", length=255, nullable=false)
      */
     private $titre;
@@ -31,12 +38,15 @@ class WikiPage
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="slug", type="string", length=255, nullable=false, unique=true)
      */
     private $slug;
 
     /**
      * @var string
+     *
      *
      * @ORM\Column(name="contenu", type="text", nullable=true)
      */
