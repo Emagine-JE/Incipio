@@ -250,8 +250,7 @@ class WikiPageController extends Controller
 
     public function markdownAction(Request $request){
 
-        $response = new Response(json_encode($request->request->get('data')));
-        $response->headers->set('Content-Type', 'application/json');
+        $response = MarkdownExtra::defaultTransform($request->request->get('data'));
 
         return new Response($response);
     }

@@ -24,7 +24,7 @@
                 <th scope="row">{{entity.id}}</th>
                 <td>{{ entity.titre }}</td>
                 <td>
-                    <div class="btn-group-vertical" role="group" >
+                    <div class="btn-group" role="group" >
                         <a href="{{ path('wikipage_show', { 'slug': entity.slug}) }}" class="btn btn-success">Afficher</a>
                         {% if is_granted('ROLE_SUIVEUR') %}
                             <a href="{{ path('wikipage_edit', { 'id': entity.id }) }}" class="btn btn-info">editer</a> 

@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="{{ asset('markitup/sets/markdown/set.js')}}"></script>
 	<script type="text/javascript" >
 	   $(document).ready(function() {
-	   		mySettings.previewTemplatePath = '{{path('wikipage_markdown_parser')}}';
+	   		mySettings.previewParserPath = '{{path('wikipage_markdown_parser')}}';
 	      $("textarea").markItUp(mySettings);
 	   });
 </script>
