@@ -58,6 +58,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         </div>
     {% endblock %}
 
+
     {% block menu_main %}
             {% block menu %}
 				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -68,6 +69,15 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 				{% endif %}
             {% endblock %}
     {% endblock %}
+
+    {# Message Flash ! #}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 
     {% block content_main %} 
             <div id="content" class="contentMain">
