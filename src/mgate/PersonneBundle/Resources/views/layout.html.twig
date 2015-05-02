@@ -22,23 +22,22 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 {# layout père de suivi bundle #}
 {% extends "::layout.html.twig" %}
 
-{% block title %}
-    {{ junior['abbr'] }} - {{ parent() }}
-{% endblock %}
+{% block title %} - Utilisateur{% endblock %}
 
 {% block content %}
 
     {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
-    {% block sous_titre %}
-    <h1>Gestion des Clients et des Utilisateurs</h1>
-    <a href="{{ path('mgatePersonne_membre_homepage') }}" class="btn btn-info" >Membres</a>
-    <a href="{{ path('mgatePersonne_intervenants_homepage') }}" class="btn btn-info" >Intervenants</a>
+    {% if is_granted('ROLE_MEMBRE') %}
+        {% block sous_titre %}
+        <h1>Gestion des Clients et des Utilisateurs</h1>
+        <a href="{{ path('mgatePersonne_membre_homepage') }}" class="btn btn-info" >Membres</a>
+        <a href="{{ path('mgatePersonne_intervenants_homepage') }}" class="btn btn-info" >Intervenants</a>
 
-    <a href="{{ path('mgatePersonne_prospect_homepage') }}" class="btn btn-warning" >Clients</a>
+        <a href="{{ path('mgatePersonne_prospect_homepage') }}" class="btn btn-warning" >Clients</a>
 
-    <hr>
-    {% endblock %}
-    
+        <hr>
+        {% endblock %}
+    {% endif %}
     {# On définit un nouveau block, que les vues du bundle pourront remplir #}
     {% block content_bundle %}
     {% endblock %}

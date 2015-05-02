@@ -64,13 +64,31 @@ class PosteController extends Controller
     }
     
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * Affiche la liste des pages et permet aux admin d'ajouter un poste
+     * @Secure(roles="ROLE_MEMBRE")
      */    
     public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('mgatePersonneBundle:Poste')->findAll();
+
+         // On récupère le service
+        $security = $this->get('security.context');
+        // On récupère le token
+        $token = $security->getToken();
+        // on récupère l'utilisateur
+        $user = $token->getUser();
+
+        if($security->isGranted('ROLE_ADMIN')){
+            $poste = new Poste;
+
+            $form = $this->createForm(new PosteType, $poste);
+
+            return $this->render('mgatePersonneBundle:Poste:index.html.twig', array(
+                'postes' => $entities,
+                'form'   => $form->createView()
+            ));
+        }
 
         return $this->render('mgatePersonneBundle:Poste:index.html.twig', array(
             'postes' => $entities,

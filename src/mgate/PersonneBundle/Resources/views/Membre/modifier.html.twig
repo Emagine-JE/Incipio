@@ -20,13 +20,16 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 #}
 
 {% extends "mgatePersonneBundle::layout.html.twig" %}
-{% block title %}Ajouter/Modifier un membre - {{ parent() }}{% endblock %}
 
 {% block content_bundle %}
 <h2>Ajouter/Modifier un membre</h2>
 <form id="form" method="POST" {{ form_enctype(form) }}>
-
+{# Getion des postes #}
+{% if is_granted('ROLE_CA') %}
     <table class="table table-bordered table-striped" data-prototype="{{ form_widget(form.mandats.vars.prototype) | e }}">
+{% else %}
+    <table class="table table-bordered table-striped">
+{% endif %}
         <tr>
             <th colspan="7">Informations Membre</th>
         </tr>
@@ -73,92 +76,107 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
             <td>{{ form_label(form.personne.adresse) }}</td>
             <td>{{ form_widget(form.personne.adresse) }}</td>
         </tr>
-        <tr>
-            <th colspan="7">Informations Intervenant</th>
-        </tr>
-        <tr>
-            <td colspan="4">{{ form_label(form.dateConventionEleve) }}</td>
-            <td colspan="3">{{ form_widget(form.dateConventionEleve) }}</td>
-        </tr>
-        <tr>
-            <td colspan="6"><button class="btn" type="submit" value="Ajouter mandat" name="add"><i class="glyphicon glyphicon-plus"></i></button> <h4 style="display: inline;">Postes occupés</h4></td>
-        </tr>
-    {% for mandat in form.mandats %}
-        <tr class="mandats">
-            <td>{{ form_label(mandat.poste) }}</td>
-            <td colspan="2">{{ form_widget(mandat.poste) }}</td>
-            <td>{{ form_label(mandat.debutMandat) }}</td>
-            <td>{{ form_widget(mandat.debutMandat) }}</td>
-            <td>{{ form_label(mandat.finMandat) }}</td>
-            <td>{{ form_widget(mandat.finMandat) }}</td>
-        </tr>
-    {% endfor %}
-    </table>
-{{ form_rest(form) }}
+
+{# Getion des postes #}
+{% if is_granted('ROLE_CA') %}
+            <tr>
+                <th colspan="7">Informations Intervenant</th>
+            </tr>
+            <tr>
+                <td colspan="4">{{ form_label(form.dateConventionEleve) }}</td>
+                <td colspan="3">{{ form_widget(form.dateConventionEleve) }}</td>
+            </tr>
+            <tr>
+                <td colspan="6"><button class="btn" type="submit" value="Ajouter mandat" name="add"><i class="glyphicon glyphicon-plus"></i></button> <h4 style="display: inline;">Postes occupés</h4></td>
+            </tr>
+        {% for mandat in form.mandats %}
+            <tr class="mandats">
+                <td>{{ form_label(mandat.poste) }}</td>
+                <td colspan="2">{{ form_widget(mandat.poste) }}</td>
+                <td>{{ form_label(mandat.debutMandat) }}</td>
+                <td>{{ form_widget(mandat.debutMandat) }}</td>
+                <td>{{ form_label(mandat.finMandat) }}</td>
+                <td>{{ form_widget(mandat.finMandat) }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+{% endif %}
+    {# affiche tous les champs manquants du formulaire #}
+    {{ form_rest(form) }}
+
+
     <input name="save" type="submit" value="Enregistrer" class="btn btn-success" />
 </form>
-<br>
-<form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement ce membre ?" action="{{ path('mgatePersonne_membre_supprimer', { 'id': form.vars.value.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger">Supprimer le membre</button>
-</form>
 
-	<br>
-    <p>
-        <a href="{{ path('mgatePersonne_membre_homepage') }}" class="btn btn-info" >Retour à la liste des membres</a>
-    </p>
-{% endblock %}
 
-{% block javascript %}
-    {{ parent() }}
-    {{ form_javascript(form) }}
+{# Bouton admin delete/retour #}
+{% if is_granted('ROLE_CA') %}
+    <br>
+    <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement ce membre ?" action="{{ path('mgatePersonne_membre_supprimer', { 'id': form.vars.value.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button class="btn btn-danger">Supprimer le membre</button>
+    </form>
 
-    <script type="text/javascript">
-        var isDirty = false;
+    	<br>
+        <p>
+            <a href="{{ path('mgatePersonne_membre_homepage') }}" class="btn btn-info" >Retour à la liste des membres</a>
+        </p>
+{% endif %}
+    {% endblock %}
 
-        jQuery(document).ready(function() {
-        
-            //Verification avant de quitter
-            $(':input').change(function(){
-                if(!isDirty){
-                   isDirty = true;
-                }
-            });
-            $(window).bind('beforeunload', function(){
-                if(isDirty)
-                    return "Do you really want to leave now?";
-            });
-            $('form').submit(function() {
-                isDirty = false;
-                return true;
-            });
-        
-            //Rajout des boutons (X, up, down) pour les phases
-            $('.mandats').each(function() {
-                addPhaseBouton($(this));
-            });
-        
-        });
-    
-        function addPhaseBouton($tagFormLi) {
-            var $delete = $('<button class="btn" id="myButtonDelete" class="btn">X</button>');
-            $tagFormLi.children().first().append($delete);
-        
-            $delete.on('click', function(e) {
-                // prevent the link from creating a "#" on the URL
-                e.preventDefault();
+{# JS de la gestion des posts
+ //TODO a clean (AC) #}
+{% if is_granted('ROLE_CA') %}
+    {% block javascript %}
+        {{ parent() }}
+        {{ form_javascript(form) }}
+
+        <script type="text/javascript">
+            var isDirty = false;
+
+            jQuery(document).ready(function() {
             
-                //CONFIRM confirmation suppression
-                var message = "Êtes vous sûr de vouloir supprimer ce mandat ?";
-                bootbox.confirm(message, function(result) {
-                    if (result) {
-                        $tagFormLi.remove();
+                //Verification avant de quitter
+                $(':input').change(function(){
+                    if(!isDirty){
+                       isDirty = true;
                     }
                 });
-               });
-        }
+                $(window).bind('beforeunload', function(){
+                    if(isDirty)
+                        return "Do you really want to leave now?";
+                });
+                $('form').submit(function() {
+                    isDirty = false;
+                    return true;
+                });
+            
+                //Rajout des boutons (X, up, down) pour les phases
+                $('.mandats').each(function() {
+                    addPhaseBouton($(this));
+                });
+            
+            });
         
-        </script>
-{% endblock %}
-
+            function addPhaseBouton($tagFormLi) {
+                var $delete = $('<button class="btn" id="myButtonDelete" class="btn">X</button>');
+                $tagFormLi.children().first().append($delete);
+            
+                $delete.on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+                
+                    //CONFIRM confirmation suppression
+                    var message = "Êtes vous sûr de vouloir supprimer ce mandat ?";
+                    bootbox.confirm(message, function(result) {
+                        if (result) {
+                            $tagFormLi.remove();
+                        }
+                    });
+                   });
+            }
+            
+            </script>
+    {% endblock %}
+{% endif %}
 

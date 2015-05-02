@@ -20,13 +20,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 #}
 
 {% extends "mgateTresoBundle::layout.html.twig" %}
-
-{% block title %}
-	Gestion des Cotisations URSSAF - {{ parent() }}
-{% endblock %}
-
-
-    
+ 
 {% block content_bundle %}
     <h3>{{ cotisation.libelle ? "Ajout d'une" :  "Modification d'une" }} Charge  </h3>
     <form method="post" {{ form_enctype(form) }}>

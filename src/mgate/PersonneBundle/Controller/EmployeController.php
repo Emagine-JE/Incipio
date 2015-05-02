@@ -50,7 +50,7 @@ class EmployeController extends Controller
         $employe = new Employe;
         $employe->setProspect($prospect);
 
-        $form        = $this->createForm(new EmployeType, $employe);
+        $form = $this->createForm(new EmployeType, $employe);
         
         if( $this->get('request')->getMethod() == 'POST' )
         {

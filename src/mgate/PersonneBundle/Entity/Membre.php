@@ -23,6 +23,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 namespace mgate\PersonneBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -115,14 +116,27 @@ class Membre {
      */
     private $relatedDocuments;
     
-    
     /**
      * @var string $photoURI
      * @ORM\Column(name="photoURI", type="string", nullable=true)
      */
     private $photoURI;
-    
 
+    /**
+     * @ORM\ManyToMany(targetEntity="emagine\SecGBundle\Entity\AdhesionCheckerCategory")
+     **/
+    private $adhesions;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->mandats = new ArrayCollection();
+        $this->missions = new ArrayCollection();
+        $this->relatedDocuments = new ArrayCollection();
+        $this->adhesions = new ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -194,15 +208,6 @@ class Membre {
      */
     public function getPoste() {
         return $this->poste;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->mandats = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->missions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->relatedDocuments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -476,5 +481,39 @@ class Membre {
     public function getPhotoURI()
     {
         return $this->photoURI;
+    }
+
+
+    /**
+     * Add adhesions
+     *
+     * @param \emagine\SecGBundle\Entity\AdhesionCheckerCategory $adhesions
+     * @return Membre
+     */
+    public function addAdhesion(\emagine\SecGBundle\Entity\AdhesionCheckerCategory $adhesions)
+    {
+        $this->adhesions[] = $adhesions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove adhesions
+     *
+     * @param \emagine\SecGBundle\Entity\AdhesionCheckerCategory $adhesions
+     */
+    public function removeAdhesion(\emagine\SecGBundle\Entity\AdhesionCheckerCategory $adhesions)
+    {
+        $this->adhesions->removeElement($adhesions);
+    }
+
+    /**
+     * Get adhesions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdhesions()
+    {
+        return $this->adhesions;
     }
 }

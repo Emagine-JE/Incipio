@@ -1,0 +1,26 @@
+{% extends "emagineSecGBundle::layout.html.twig" %}
+
+{% block content_bundle %}
+
+	<h2>Liste des Categories de l'Adhésion checker</h2>
+	
+	<div class="col-md-6">
+		<ul>
+		{% for categorie in categories %}
+			<li>
+	            <a href="{{ path('emagine_secG_AdhesionChecker_show_category', {'id': categorie.id}) }}"> {{ categorie.nom }} </a>
+	        </li>
+		{% endfor %}
+		</ul>
+	</div>
+	<div class="col-md-6">
+		<h2>Ajouter une catégorie à l'Adhésion checker</h2>
+
+		<form method="post" {{ form_enctype(form) }}>
+			
+			{{ form_widget(form) }}
+			
+			<input type="submit" class="btn btn-success"/>
+		</form>
+	</div>
+{% endblock %}

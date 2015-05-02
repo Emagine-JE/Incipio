@@ -12,7 +12,7 @@ _configurator:
 
 _main:
     resource: routing.yml
-    
+
 # ConsoleBundle
 #console:
 #    resource: "@CoreSphereConsoleBundle/Resources/config/routing.yml"

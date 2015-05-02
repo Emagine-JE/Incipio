@@ -1,0 +1,192 @@
+        
+{#
+This file is part of Incipio.
+
+Incipio is an enterprise resource planning for Junior Enterprise
+Copyright (C) 2012-2014 Florian Lefevre.
+
+Incipio is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+Incipio is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
+{% extends "emagineFormationBundle::layout.html.twig" %}
+{% block content_bundle %}
+<h2>Formulaires</h2>
+<form method="post" {{ form_enctype(form) }}>
+    <input class="btn" type="submit" value="Enregistrer la Formation"/>
+    <br/><br/>
+    <table class="table table-bordered table-striped standard">
+        <tr>
+            <th>{{ form_label(form.titre) }}</th>
+            <td>{{ form_widget(form.titre) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.mandat) }}</th>
+            <td>{{ form_widget(form.mandat) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.description) }}</th>
+            <td>{{ form_widget(form.description) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.categorie) }}</th>
+            <td>{{ form_widget(form.categorie) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.dateDebut) }}</th>
+            <td>{{ form_widget(form.dateDebut) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.dateFin) }}</th>
+            <td>{{ form_widget(form.dateFin) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.docPath) }}</th>
+            <td>{{ form_widget(form.docPath) }}</td>
+        </tr>
+    </table>
+    <table class="table table-bordered table-striped" id="formateurs" data-prototype="{{ form_widget(form.formateurs.vars.prototype) | e }}">
+        <tr>
+            <th colspan="2"><a href="#" id="addFormateur">+</a> Formateurs</th>
+        </tr>
+        {% for formateur in form.formateurs %}
+        <tr id="formateur">
+            <td></td>
+            <td>{{ form_widget(formateur) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th colspan="2"><a href="#" id="addMembres">+</a> Membres Présents</th>
+        </tr>
+        <tr><td colspan="2">
+            <div class="row" id="membres" data-prototype="{{ form_widget(form.membresPresents.vars.prototype) | e }}">
+            {% for membre in form.membresPresents %}
+            <div class="col-md-4" id="membre">
+            <span>{# delete button #}</span>
+            {{ form_widget(membre) }}
+            </div>
+            {% endfor %}
+            </div>
+        </td></tr>
+    </table>
+	
+	{{ form_widget(form) }}
+	
+	<input class="btn" type="submit" value="Enregistrer la Formation"/>      
+</form>
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+
+<script type="text/javascript">
+// Récupère le div qui contient la collection de tags
+var collectionHolderFormateurs = $('#formateurs');
+var $addFormateurButton = $("#addFormateur");
+
+var collectionHolderMembres = $('#membres');
+var $addMembreButton = $("#addMembres");
+
+function triggerJavascript(type,id)
+{
+    if(type == 'formateur'){
+        $field = $('select#{{form.formateurs.vars.id}}_'+ id);
+        {{ form_javascript(form.formateurs.vars.prototype, true) }}
+    }
+    else{
+        $field = $('select#{{form.membresPresents.vars.id}}_'+ id);
+        {{ form_javascript(form.membresPresents.vars.prototype, true) }}
+    }
+}
+
+jQuery(document).ready(function() {
+    var i = 0;
+    var j = 0;
+    $("tr#formateur").each(function(){
+        addDeleteButton(this);
+    });
+    $("div#membre").each(function(){
+        addDeleteButton(this);
+    });
+    
+    
+    $addFormateurButton.on('click', function(e) {
+        // empêche le lien de créer un « # » dans l'URL
+        e.preventDefault();
+
+        // ajoute un nouveau formulaire formateur (voir le prochain bloc de code)
+        addTagForm(collectionHolderFormateurs, i, 'formateur');
+        i++;
+    });
+    
+    $addMembreButton.on('click', function(e) {
+        // empêche le lien de créer un « # » dans l'URL
+        e.preventDefault();
+
+        // ajoute un nouveau formulaire formateur (voir le prochain bloc de code)
+        addTagForm(collectionHolderMembres, j, 'membre');
+        j++;
+    });
+});
+
+
+function addTagForm(collectionHolder, i, type) {
+    // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
+    var prototype = collectionHolder.attr('data-prototype');
+
+    // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
+    // la longueur de la collection courante
+    var id = 0;
+    if(type == 'formateur'){
+        id = collectionHolderFormateurs.children().first().children().length;
+        var newForm = prototype.replace(/__name__/g, id);
+        newForm = '<tr id="'+type+i+'"><td></td><td>'+newForm+'</td></tr>';
+    }
+    else{
+        id = collectionHolderMembres.children().length;
+        var newForm = prototype.replace(/__name__/g, id);
+        newForm= '<div class="col-md-4" id="'+type+i+'"><span></span> '+newForm+'</div>';
+    }
+    
+    // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
+    var $newForm = collectionHolder.append(newForm); 
+    addDeleteButton($('#'+type+i));
+    triggerJavascript(type, id);
+    
+}   
+
+      
+function addDeleteButton($tag) {
+    var $delete = $('<button class="btn" id="myButtonDelete" class="btn">X</button>');
+    $($tag).children().first().append($delete);
+      
+    $delete.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        //CONFIRM confirmation suppression
+        var message = "Êtes vous sûr de vouloir supprimer ce membre ?";
+        bootbox.confirm(message, function(result) {
+            if (result) {
+                $tag.remove();
+            }
+        });
+   });
+    
+}  
+        </script>
+{% endblock %}

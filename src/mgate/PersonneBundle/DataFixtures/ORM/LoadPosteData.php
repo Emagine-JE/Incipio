@@ -32,6 +32,7 @@ class LoadPosteData implements FixtureInterface
             "Respo. Suivi de projets",
             "Adjoint Suivi de Projets",
             //Membre
+            "membre",
             "Intervenant",
             "Chef de Projet",
         );

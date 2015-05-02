@@ -1,0 +1,13 @@
+{% extends "emagineComBundle::layout.html.twig" %}
+
+{% block content_bundle %}
+	<div class="page-header">
+        <h1>WikiPage creation</h1>
+	    <a href="{{ path('wikipage') }}" class="btn btn-default">
+	        Retourner à la liste des Pages
+	    </a>
+    </div>
+    
+    {{ form(form) }}
+
+{% endblock %}

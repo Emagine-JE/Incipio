@@ -47,8 +47,8 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
             <li class="divider"></li>
             <li class="dropdown-header">SecG</li>
             <li><a href="{{ path('mgatePersonne_membre_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un membre</a></li>
-            <li><a href="{{ path('emagine_sec_g_adhesion_checker') }}"><span class="glyphicon glyphicon-ok-sign"></span><s> d’Adhésion Checker</s></a></li>
-            <li><a href="{{ path('emagine_sec_g_adhesion_checker') }}"><span class="glyphicon glyphicon-folder-open"></span><s> Compte rendu</s></a></li>
+            <li><a href="{{ path('emagine_secG_AdhesionChecker_index') }}"><span class="glyphicon glyphicon-ok-sign"></span> Adhésion Checker</a></li>
+            <li><a href="{{ path('emagine_secG_AdhesionChecker_index') }}"><span class="glyphicon glyphicon-folder-open"></span><s> Compte rendu</s></a></li>
             {% endif %}
 
         </ul>
@@ -77,15 +77,15 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Formations <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li class="dropdown-header">Formations</li>
-            <li><a href="{{ path('mgate_formations_lister') }}"><span class="glyphicon glyphicon-book"></span> Voir les formations</a></li>
+            <li><a href="{{ path('emagine_formations_lister') }}"><span class="glyphicon glyphicon-book"></span> Voir les formations</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-book"></span><s> Wiki {{ junior['abbr'] }}</s></a></li>
 
             {% if is_granted('ROLE_CA') %}
             <li class="divider"></li>
             <li class="dropdown-header">Administration</li>
-            <li><a href="{{ path('mgate_formations_index_admin') }}"><span class="glyphicon glyphicon-list"></span> Gérer les formations</a></li>
-            <li><a href="{{ path('mgate_formation_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter une formation</a></li>
-            <li><a href="{{ path('mgate_formation_participation') }}"><span class="glyphicon glyphicon-tasks"></span> Participation aux formations</a></li>
+            <li><a href="{{ path('emagine_formations_index_admin') }}"><span class="glyphicon glyphicon-list"></span> Gérer les formations</a></li>
+            <li><a href="{{ path('emagine_formation_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter une formation</a></li>
+            <li><a href="{{ path('emagine_formation_participation') }}"><span class="glyphicon glyphicon-tasks"></span> Participation aux formations</a></li>
             {% endif %}
 
         </ul>
@@ -235,8 +235,10 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
             <li><a href="{{ path('mgate_user_lister') }}"><span class="glyphicon glyphicon-pencil"></span> Lister / Modifier</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Configuration</li>
-            <li><a href="{{ path('mgatePersonne_poste_homepage') }}"><span class="glyphicon glyphicon-list"></span> Postes</a></li>
+            <li><a href="{{ path('emagine_secG_AdhesionChecker_add_category') }}"><span class="glyphicon glyphicon-list"></span> Adhésion Checker</a></li>
             <li><a href="{{ path('mgateSuivi_domaine_index') }}"><span class="glyphicon glyphicon-list"></span> Domaines de compétence</a></li>
+            <li><a href="{{ path('mgatePersonne_poste_homepage') }}"><span class="glyphicon glyphicon-list"></span> Postes</a></li>
+            <li><a href="{{ path('mgatePersonne_poste_homepage') }}"><span class="glyphicon glyphicon-list"></span> Formations</a></li>
         </ul>
     </li>
     {% endif %}

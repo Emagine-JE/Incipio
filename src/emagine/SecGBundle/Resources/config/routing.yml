@@ -1,3 +1,23 @@
-emagine_sec_g_adhesion_checker:
+emagine_secG_AdhesionChecker_index:
     path:     /ca/AdhesionChecker
-    defaults: { _controller: emagineSecGBundle:Default:index }
+    defaults: { _controller: emagineSecGBundle:AdhesionChecker:index }
+
+emagine_secG_AdhesionChecker_add_category:
+    path:     /ca/AdhesionChecker/addCategory
+    defaults: { _controller: emagineSecGBundle:AdhesionChecker:addCategory }
+
+emagine_secG_AdhesionChecker_show_category:
+    path:     /ca/AdhesionChecker/showCategory/{id}
+    defaults: { _controller: emagineSecGBundle:AdhesionChecker:showCategory }
+    requirements:
+        id: \d+
+
+emagine_secG_AdhesionChecker_update_category:
+    path:     /ca/AdhesionChecker/updateCategory/{id}
+    defaults: { _controller: emagineSecGBundle:AdhesionChecker:updateCategory }
+    requirements:
+        id: \d+
+
+emagine_secG_AdhesionChecker_check:
+    path:     /ca/AdhesionChecker/check
+    defaults: { _controller: emagineSecGBundle:AdhesionChecker:check }

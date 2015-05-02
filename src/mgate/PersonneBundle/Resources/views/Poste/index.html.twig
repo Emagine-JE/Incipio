@@ -23,12 +23,10 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 {% extends "mgatePersonneBundle::layout.html.twig" %}
 
-{% block title %}Accueil - {{ parent() }}{% endblock %}
-
 {% block content_bundle %}
 
     <h2>Liste des Postes</h2>
-
+    <div class="col-md-6">
     <ul>
         {% for poste in postes %}
             <li>
@@ -38,12 +36,11 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
             <li>Pas (encore !) de Poste</li>
         {% endfor %}
     </ul>
-    <br>
+    </div>
     {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('mgatePersonne_poste_ajouter') }}" class="btn btn-success" ><span class="glyphicon glyphicon-plus"> Ajouter un Poste</span></a>
+    <div class="col-md-6">
+        {% include "mgatePersonneBundle:Poste:ajouter.html.twig" %}
+    </div>
     {% endif %}
-        
-
-
 
 {% endblock %}

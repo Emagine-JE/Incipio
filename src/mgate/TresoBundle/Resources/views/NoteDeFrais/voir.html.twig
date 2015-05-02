@@ -21,10 +21,6 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
-{% block title %}
-	Note de Frais {{ nf.mandat }}-NF{{ nf.numero}}-{{ nf.demandeur.membre.identifiant }}- {{ parent() }}
-{% endblock %}
-
 {% block content_bundle %}
     <h3>Note de Frais {{ nf.mandat }}-NF{{ nf.numero}}-{{ nf.demandeur.membre.identifiant }}</h3>
     <table class="table table-bordered table-striped">

@@ -1,0 +1,17 @@
+{% extends "emagineSecGBundle::layout.html.twig" %}
+
+{% block content_bundle %}
+<div class="jumbotron">
+	<h1>{{ category.nom }}</h1>
+	<p>{{ category.description }}</p>
+</div>
+
+
+<p> 
+   <a class="btn btn-lg btn-primary"href="{{ path('emagine_secG_AdhesionChecker_add_category') }}">Retour à la liste des Catégories</a>
+
+   {% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn-lg btn-warning" href="{{ path('emagine_secG_AdhesionChecker_update_category', {'id': category.id}) }}">Modifier la catégorie</a>
+	{% endif %}
+</p>
+{% endblock %}

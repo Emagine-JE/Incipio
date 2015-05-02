@@ -24,7 +24,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-        <title>{{ junior['abbr'] }}{% block title %}{% endblock %} - Incipio</title>
+        <title>{{ junior['abbr'] }} {% block title %}{% endblock %} - Incipio</title>
         <link rel="icon" type="image/x-icon" href="{{ junior['logo_min'] }}" />
 
 {% block stylesheets %}
@@ -33,55 +33,6 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}" type="text/css" />
         <link rel="stylesheet" href="{{ asset('css/select2.css')}}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-
-    /* Sticky footer styles
-    -------------------------------------------------- */
-    html {
-      position: relative;
-      min-height: 100%;
-    }
-    body {
-      /* Margin bottom by footer height */
-      margin-bottom: 60px;
-    }
-    #footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      /* Set the fixed height of the footer here */
-      height: 60px;
-      background-color: #f5f5f5;
-    }
-
-    /* Custom page CSS
-    -------------------------------------------------- */
-    /* Not required for template or sticky footer method. */
-
-    body > .container {
-      padding: 60px 15px 0;
-    }
-    .container .text-muted {
-      margin: 20px 0;
-    }
-
-    #footer > .container {
-      padding-right: 15px;
-      padding-left: 15px;
-    }
-
-    code {
-      font-size: 80%;
-    }
-    
-    .contentMain {
-        width: 95%;
-        margin-left: auto;
-        margin-right: 40px;
-        margin-bottom: 100px;
-    }
-
-        </style>
 {% endblock %}
 
 {% block head %}
@@ -91,12 +42,12 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         <body>
             
 {% block javascript_quick %}
-            <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
-            <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('js/jquery-ui-1.10.0.custom.min.js') }}"></script>
-            <script src="{{ asset('js/jquery.tablesorter.js') }}"></script>
-            <script src="{{ asset('js/jquery.ui.datepicker-fr.js')}}"></script>
-            <script src="{{ asset('js/select2.min.js')}}"></script>
+        <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/jquery-ui-1.10.0.custom.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.tablesorter.js') }}"></script>
+        <script src="{{ asset('js/jquery.ui.datepicker-fr.js')}}"></script>
+        <script src="{{ asset('js/select2.min.js')}}"></script>
 {% endblock %}            
             
 {% block body %} 
@@ -106,6 +57,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
             {% endblock %}
         </div>
     {% endblock %}
+
 
     {% block menu_main %}
             {% block menu %}
@@ -117,6 +69,15 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 				{% endif %}
             {% endblock %}
     {% endblock %}
+
+    {# Message Flash ! #}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 
     {% block content_main %} 
             <div id="content" class="contentMain">

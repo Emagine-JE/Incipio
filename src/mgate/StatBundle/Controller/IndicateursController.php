@@ -122,7 +122,7 @@ class IndicateursController extends Controller {
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     public function indexAction() {
         if (isset($_SESSION['autorizedMethods']))
@@ -275,7 +275,7 @@ class IndicateursController extends Controller {
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     public function ajaxAction() {
         $request = $this->get('request');
@@ -289,7 +289,7 @@ class IndicateursController extends Controller {
     }
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     // NB On se base pas sur les numéro mais les dates de signature CC !
     private function getRetardParMandat() {
@@ -382,7 +382,7 @@ class IndicateursController extends Controller {
     }
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     // NB On se base pas sur les numéro mais les dates de signature CC !
     private function getNombreEtudes() {
@@ -469,7 +469,7 @@ class IndicateursController extends Controller {
     }
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getRepartitionSorties() {
         $em = $this->getDoctrine()->getManager();
@@ -551,7 +551,7 @@ class IndicateursController extends Controller {
     }
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getSortie() {
         $em = $this->getDoctrine()->getManager();
@@ -660,7 +660,7 @@ class IndicateursController extends Controller {
     }
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getPartClientFidel() {
         $etudeManager = $this->get('mgate.etude_manager');
@@ -738,7 +738,7 @@ class IndicateursController extends Controller {
     }
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getNombreDePresentFormationsTimed() {
         $em = $this->getDoctrine()->getManager();
@@ -823,7 +823,7 @@ class IndicateursController extends Controller {
     
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getNombreFormationsParMandat() {
         $em = $this->getDoctrine()->getManager();
@@ -886,7 +886,7 @@ class IndicateursController extends Controller {
 
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     // NB On se base pas sur les numéro mais les dates de signature CC !
     private function getTauxDAvenantsParMandat() {
@@ -980,7 +980,7 @@ class IndicateursController extends Controller {
     
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getRepartitionClientSelonChiffreAffaire() {
         $em = $this->getDoctrine()->getManager();
@@ -1050,7 +1050,7 @@ class IndicateursController extends Controller {
     
     
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getRepartitionClientParNombreDEtude() {
         $em = $this->getDoctrine()->getManager();
@@ -1124,7 +1124,7 @@ class IndicateursController extends Controller {
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getNombreMembres() {
         $em = $this->getDoctrine()->getManager();
@@ -1210,7 +1210,7 @@ class IndicateursController extends Controller {
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getMembresParPromo() {
         $em = $this->getDoctrine()->getManager();
@@ -1279,7 +1279,7 @@ class IndicateursController extends Controller {
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getIntervenantsParPromo() {
         $em = $this->getDoctrine()->getManager();
@@ -1345,7 +1345,7 @@ class IndicateursController extends Controller {
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getCAM() {
         $etudeManager = $this->get('mgate.etude_manager');
@@ -1463,7 +1463,7 @@ class IndicateursController extends Controller {
      */
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getCA() {
         $etudeManager = $this->get('mgate.etude_manager');
@@ -1570,7 +1570,7 @@ class IndicateursController extends Controller {
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_MEMBRE")
      */
     private function getRh() {
         $etudeManager = $this->get('mgate.etude_manager');

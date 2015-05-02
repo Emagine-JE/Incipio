@@ -1,0 +1,10 @@
+{% extends "emagineSecGBundle::layout.html.twig" %}
+
+{% block content_bundle %}
+<form method="post" {{ form_enctype(form) }}>
+			
+	{{ form_widget(form) }}
+			
+	<input type="submit" class="btn btn-success"/>
+</form>
+{% endblock %}

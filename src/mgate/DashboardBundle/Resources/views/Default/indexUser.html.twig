@@ -1,0 +1,46 @@
+{% extends "mgateDashboardBundle::layout.html.twig" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row" style="min-height:350px">
+        {% if not hasPersonne %}
+            <div class="col-md-6">
+                <div class="jumbotron">
+                  <h1>Profile Utilisateur</h1>
+                  <p>Votre Profile est incomplet ou n'a pas été créé</p>
+                  <p><a class="btn btn-primary btn-lg" href="{{ path('mgatePersonne_membre_ajouter') }}" role="button">Renseigner mon profile</a></p>
+                </div>
+            </div>
+        {% endif %}
+        {% if not hasInscription %}
+            <div class="col-md-6">
+                <div class="jumbotron">
+                  <h1>Inscription Emagine</h1>
+                  <p>...</p>
+                  <p><a class="btn btn-primary btn-lg" href="{{ junior['inscription_wikipage'] }}" role="button">Réaliser mon inscription</a></p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table">
+                <tr>
+                    <th colspan="2">Informations</th>
+                </tr>
+                <tr>
+                    <td>Connecté en tant que </td>
+                    <th>{{ app.user.username }}</th>
+                </tr>
+                <tr>
+                    <td>Dernière connexion le </td>
+                    <th>{{ app.user.lastLogin ? app.user.lastLogin | date ('d M Y')  }}</th>
+                </tr>
+                <tr>
+                    <td colspan="2"><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-remove-sign"></span> Déconnexion</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

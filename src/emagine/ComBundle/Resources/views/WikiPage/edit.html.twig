@@ -1,0 +1,32 @@
+{% extends "emagineComBundle::layout.html.twig" %}
+
+{% block javascript_quick %}
+{{ parent() }}
+	<script type="text/javascript" src="{{ asset('markitup/jquery.markitup.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('markitup/sets/markdown/set.js')}}"></script>
+	<script type="text/javascript" >
+	   $(document).ready(function() {
+	   		mySettings.previewParserPath = '{{path('wikipage_markdown_parser')}}';
+	      $("textarea").markItUp(mySettings);
+	   });
+</script>
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+    <link rel="stylesheet" href="{{ asset('markitup/skins/markitup/style.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('markitup/sets/markdown/style.css')}}"/>
+{% endblock %}
+
+{% block content_bundle %}
+	<div class="page-header">
+        <h1>WikiPage edition</h1>
+		<a href="{{ path('wikipage') }}" class="btn btn-default">
+		    Retourner à la liste des Pages
+		</a>
+    </div>
+
+    {{ form(edit_form) }}
+    {{ form(delete_form) }}
+
+{% endblock %}
