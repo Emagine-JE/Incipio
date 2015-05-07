@@ -17,6 +17,12 @@ class WikipageType extends AbstractType
         $builder
             ->add('titre')
             ->add('slug')
+            ->add('category', 'genemu_jqueryselect2_entity', array(
+                'class' => 'emagine\ComBundle\Entity\WikiPageCategory',
+                'property' => 'titre',
+                'required' => true,
+                'label' => 'Categorie',
+                ))
             ->add('contenu')
         ;
     }

@@ -32,8 +32,8 @@ parameters:
         logo_min:     ~
         inscription_img: ~
 
-        inscription_wikipage: '/wikipage/renseignement-JE'
-        renseignement_wikipage: '/wikipage/inscription-JE'
+        inscription_wikipage: /wikipage/inscription-JE
+        renseignement_wikipage: /wikipage/renseignement-JE
 
         adresse:      ~
         url:          ~

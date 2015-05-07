@@ -10,6 +10,8 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use emagine\ComBundle\Entity\WikiPage;
 use emagine\ComBundle\Form\WikiPageType;
 
+use emagine\ComBundle\Entity\WikiPageCategory;
+
 use \Michelf\MarkdownExtra;
 
 /**
@@ -25,20 +27,120 @@ class WikiPageController extends Controller
      * @Secure(roles="IS_AUTHENTICATED_ANONYMOUSLY")
      * 
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('emagineComBundle:WikiPage')->findAll();
+        $category = $request->query->get('category');
+
+        if($category){
+
+            $category = $em->getRepository('emagineComBundle:WikiPageCategory')->findOneByTitre($category);
+            if (!$category) {
+                throw $this->createNotFoundException('Unable to find WikiPage entity.');
+            }
+
+            $entities = $em->getRepository('emagineComBundle:WikiPage')->findByCategory($category);
+        }else{
+            $entities = $em->getRepository('emagineComBundle:WikiPage')->findAll();
+        }
+        
+        $categories = $em->getRepository('emagineComBundle:WikiPageCategory')->findAll();
+
+        $category = new WikiPageCategory();
+        $form = $this->createCreateCategoryForm($category);
 
         return $this->render('emagineComBundle:WikiPage:index.html.twig', array(
-            'entities' => $entities,
+            'entities'      => $entities,
+            'categories'    => $categories,
+            'form'          => $form->createView(),
         ));
     }
+
+    /**
+     * Create à new WikiPageCategory
+     *
+     * @return indexAction
+     */
+    public function createCategoryAction(Request $request){
+
+        $entity = new WikiPageCategory();
+        $form = $this->createCreateCategoryForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            $this->addFlash(
+                    'success',
+                    'Categorie Ajouté'
+            );
+        }else{
+            $this->addFlash(
+                    'danger',
+                    'erreur lors de l\'enregistrement'
+            );
+        }
+
+        return $this->redirect($this->generateUrl('wikipage'));        
+    }
+
+    /**
+     * Creates a form to create a WikiPageCategory entity.
+     *
+     * @param WikiPageCategory $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateCategoryForm(WikiPageCategory $entity)
+    {
+        $form = $this->createFormBuilder($entity)
+            ->add('titre')
+            ->add('ajouter', 'submit')
+        ->getForm();
+
+        return $form;
+    }
+
+    /**
+     * Deletes a WikiPageCategoory entity.
+     *
+     * @Secure(roles="ROLE_CA")
+     *
+     */
+    public function deleteCategoryAction(Request $request, $id){
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('emagineComBundle:WikiPageCategory')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find WikiPage entity.');
+        }
+
+        if(!$entity->getWikiPage()->isEmpty()){
+            $this->addFlash(
+                'danger',
+                'Vous ne pouvez pas supprimer une catégorie liée à des pages'
+            );
+        }else{
+            $em->remove($entity);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Categorie supprimé'
+            );
+        }
+
+        return $this->redirect($this->generateUrl('wikipage'));
+    }
+
     /**
      * Creates a new WikiPage entity.
      * 
-     * @Secure(roles="ROLE_CA")     * 
+     * @Secure(roles="ROLE_CA")
      */
     public function createAction(Request $request)
     {

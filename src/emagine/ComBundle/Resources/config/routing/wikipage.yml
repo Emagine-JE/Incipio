@@ -1,6 +1,17 @@
 wikipage:
     path:     /
     defaults: { _controller: "emagineComBundle:WikiPage:index" }
+    methods:  GET
+
+wikipage_createCategory:
+    path:     /
+    defaults: { _controller: "emagineComBundle:WikiPage:createCategory" }
+    methods:  POST
+
+wikipage_deleteCategory:
+    path:     /Category/{id}/delete
+    defaults: { _controller: "emagineComBundle:WikiPage:deleteCategory" }
+    methods:  GET
 
 wikipage_new:
     path:     /new

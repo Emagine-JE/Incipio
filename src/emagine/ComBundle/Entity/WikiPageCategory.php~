@@ -1,0 +1,74 @@
+<?php
+
+namespace emagine\ComBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * WikiPageCategory
+ *
+ * @UniqueEntity("titre")
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class WikiPageCategory
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=255, nullable=false, unique=true)
+     */
+    private $titre;
+
+    /**
+     * @ORM\OneToMany(targetEntity="emagine\ComBundle\Entity\WikiPage", mappedBy="category")
+     **/
+    private $wikiPage;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return WikiPageCategory
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+    
+        return $this;
+    }
+
+    /**
+     * Get titre
+     *
+     * @return string 
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+}

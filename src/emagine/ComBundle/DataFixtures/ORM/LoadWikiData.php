@@ -29,6 +29,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use emagine\ComBundle\Entity\WikiPage;
+use emagine\ComBundle\Entity\WikiPageCategory;
 
 class LoadWikiData implements FixtureInterface, ContainerAwareInterface
 {
@@ -56,12 +57,16 @@ class LoadWikiData implements FixtureInterface, ContainerAwareInterface
             'renseignement-JE',
             'inscription-JE',
         ];
+
+        $cat = new WikiPageCategory();
+        $cat->setTitre('Information');
         
         foreach ($datas as $data) {
             $wiki = new WikiPage();
             $wiki->setTitre($data);
             $wiki->setSlug($data);
             $wiki->setProtected(true);
+            $wiki->setCategory($cat);
 
 
             $manager->persist($wiki);

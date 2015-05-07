@@ -9,12 +9,31 @@
         </a>
     {% endif %}
     </div>
-<div class="bs-example" data-example-id="contextual-table">
+
+<div class="row">
+    <div class="col-md-3 col-sm-12" >
+        <h2>Categories</h2>
+        
+            {% for category in categories %}
+                <div class="btn-toolbar" role="toolbar" >
+                    <a href="{{ path('wikipage_deleteCategory',{ 'id' : category.id}) }}" class="btn glyphicon glyphicon-remove"></a>
+                    <a href="{{ path('wikipage',{ 'category' : category.titre}) }}" class="btn btn-default" style="min-width:70%">{{ category.titre }}</a>
+                </div>
+            {% endfor %}
+
+        <hr>
+        {{ form_start(form)}}
+        {{ form_widget(form)}}
+        {{ form_end(form)}}
+    </div>
+
+    <div class="col-md-9 col-sm-12" >
     <table class="table table-hover table-condensed">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Titre</th>
+                <th>Categorie</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -23,6 +42,9 @@
             <tr {% if entity.protected == true %} class="info" {% endif %}>
                 <th scope="row">{{entity.id}}</th>
                 <td>{{ entity.titre }}</td>
+                <td>{% if entity.category.titre is defined %}
+                        {{ entity.category.titre }}
+                    {% endif %}</td>
                 <td>
                     <div class="btn-group" role="group" >
                         <a href="{{ path('wikipage_show', { 'slug': entity.slug}) }}" class="btn btn-success">Afficher</a>
@@ -35,6 +57,6 @@
         {% endfor %}
         </tbody>
     </table>
-</div>
-
+    </div>
+</div>  
 {% endblock %}
