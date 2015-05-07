@@ -24,8 +24,7 @@
         "friendsofsymfony/comment-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "~1.1",
         "ob/highcharts-bundle": "dev-master",
-        "genemu/form-bundle": "v2.2.1",
-        "gedmo/doctrine-extensions": "dev-master",        
+        "genemu/form-bundle": "v2.2.1",       
         "jms/security-extra-bundle": "dev-master",
         "stof/doctrine-extensions-bundle": "dev-master",
         "michelf/php-markdown": "^1.5"               
