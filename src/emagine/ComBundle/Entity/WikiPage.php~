@@ -62,7 +62,7 @@ class WikiPage
     private $protected = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="emagine\ComBundle\Entity\WikiPageCategory", inversedBy="wikiPage", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="emagine\ComBundle\Entity\WikiPageCategory", inversedBy="wikiPage")
      *
      */
     private $category;
@@ -168,28 +168,5 @@ class WikiPage
     public function getProtected()
     {
         return $this->protected;
-    }
-
-    /**
-     * Set category
-     *
-     * @param \emagine\ComBundle\Entity\WikiPageCategory $category
-     * @return WikiPage
-     */
-    public function setCategory(\emagine\ComBundle\Entity\WikiPageCategory $category = null)
-    {
-        $this->category = $category;
-    
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \emagine\ComBundle\Entity\WikiPageCategory 
-     */
-    public function getCategory()
-    {
-        return $this->category;
     }
 }

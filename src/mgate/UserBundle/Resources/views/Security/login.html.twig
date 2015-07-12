@@ -46,9 +46,9 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
   {% endif %}
 </p></div>
 <div class="col-lg-6 col-sm-12">
-    <a class='btn btn-lg btn-primary btn-block' href="{{ junior['renseignement_wikipage'] }}">Me renseigner sur {{ junior['nom'] }}</a> 
+    <a class='btn btn-lg btn-primary btn-block' href="{{ junior['renseignement_wikipage'] }}">Me renseigner sur {{ junior['nom'] }}</a>
+    <a class='btn btn-lg btn-primary btn-block' href="{{ path('fos_user_registration_register') }}">Inscription</a>
     <img src="{{ junior['inscription_img'] }}" alt="" class="inscription_img">
-    <a class='btn btn-lg btn-primary btn-block' href="{{ path('fos_user_registration_register') }}">Inscription</a> 
 </div>
 
 {% endblock fos_user_content %}
