@@ -131,7 +131,7 @@ class AdhesionCheckerController extends Controller
                 $em->persist($membre);
                 $em->flush();
             }else{
-                $em->remove($result);
+                $membre->removeAdhesion($adhesion);
                 $em->flush();
             }
 
